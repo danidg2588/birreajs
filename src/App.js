@@ -1,24 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import './Components/Home/home.css';
+
+import { Routes, Route } from 'react-router-dom';
+import { Home } from './Components/Home/Home';
+import { Authentication } from './Components/Authentication/Authentication';
+import { TermsYConds } from './Components/TermsYConds/TermsYConds';
+import Consultar from './Components/Consultar/Consultar';
+import RegisteredUserContent from './Components/RegisteredUserContent';
+import { Dashboard } from './Components/Dashboard/Dashboard';
+
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route index path="/birreajs" element={<Home/>}></Route>
+      <Route path='/terminos-y-condiciones' element={<TermsYConds/>}></Route>
+      <Route path='/consultar' element={<Consultar />}></Route>
+      <Route path='/sign-in' element={<Authentication/>}></Route>
+      <Route element={<RegisteredUserContent />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+      </Route>
+    </Routes>
   );
 }
 

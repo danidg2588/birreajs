@@ -1,0 +1,25 @@
+.customer-section{
+    gap: 2rem;
+    display: block;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1;
+    
+
+    .graph, .schedule{
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        flex: 1;
+
+        .title{
+            font-weight: 700;
+            color: var(--textColor);
+            display: block;
+            padding-bottom: 1rem;
+        }
+    }
+
+}

@@ -1,0 +1,203 @@
+.main-cards{
+    align-items: center;
+    gap: 2rem;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0 .5rem;
+    flex: 1;
+    overflow-y: scroll;
+
+    .cards{
+        display: grid;
+        gap: 1rem ;
+
+
+        .card{
+            padding: .8rem;
+            border-radius: 1rem;
+            gap: 1rem;
+
+            .date{
+                background:var(--whiteColor);
+                padding: .7rem 1rem .7rem .7rem;
+                border-radius: .5rem 1rem 2.5rem .5rem;
+                text-align: center;
+                box-shadow: 2px 2px 2px rgba(196,201,203,0.432 );
+            }
+        }
+
+        .text{
+            font-size: var(--smallestFontSize);
+            font-weight: 600;
+            color: var(--textColor);
+            padding-bottom: 0.5rem;
+            display: block;
+        }
+
+        .percentage{
+            position: relative;
+            padding-right: 1rem;
+
+            &::after{
+                position: absolute;
+                content: '';
+                height: 20px;
+                width: 1px;
+                background: var(--whiteColor);
+                opacity: .5;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .flex{
+                gap: .5rem;
+                display: flex;
+
+                .line{
+                    content: '';
+                    height: 5px;
+                    width: 50px;
+                    background: linear-gradient(to right,rgb(1,86,91),rgb(225,242,150));
+                    border-radius: 1rem;
+                }
+
+                .pctg{
+                    padding: .2rem .5rem;
+                    font-size: var(--smallestFontSize);
+                    background: var(--whiteColor);
+                    border-radius: 1rem;
+                    font-weight: 600;
+                    color: var(--textColor);
+                }
+            }
+        }
+
+        .time, .work-time{
+            padding: 0 .5rem;
+
+            h2{
+                font-size: var(--h3FontSize);
+                color: var(--textColor);
+                font-weight: bold;
+            }
+        }
+
+        .yellow-card{
+            background: var(--yellowColor);
+        }
+
+        .lightgreen-card{
+            background-color: var(--lightGreenColor);
+
+            .text{
+                color: var(--whiteColor);
+            }
+
+            h2{
+                color: var(--whiteColor ) !important;
+            }
+
+            .flex{
+                .line{
+                    background: linear-gradient(to right,rgb(255,255,255),rgb(90,186,138));
+                }
+            }
+        }
+
+        .darkgreen-card{
+            background-color: var(--darkGreenColor);
+
+            .text{
+                color: var(--whiteColor);
+            }
+
+            h2{
+                color: var(--whiteColor ) !important;
+            }
+
+            .flex{
+                .line{
+                    background: linear-gradient(to right,rgb(255,242,150),rgb(1,86,91 ));
+                }
+            }
+        }
+    }
+
+    .stats{
+        flex: 1;
+        min-width: 350px;
+        
+        .title{
+            text-align: center;
+            font-weight: 600;
+            color: var(--textColor);
+            
+        }
+        
+        .stat{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            .single-stat{
+                margin: .5rem 0;
+
+                .stat-info{
+                    justify-content: space-between;
+
+                    .status{
+                        padding: 1rem 0;
+                        color: var(--darkGreenColor);
+                        opacity: .7;
+                        font-weight: 700;
+                    }
+
+                    .percentage{
+                        color: var(--textColor);
+                        font-weight: 700;
+                    }
+                }
+
+                .line{
+                    width: 100%;
+                    height: 5px;
+                    background: rgb(232,230,230);
+                    border-radius: 3rem;
+                    overflow: hidden;
+                    position: relative;
+
+                    .range{
+                        display: block;
+                        height: 100%;
+                        background: var(--lightGreenColor);
+                        border-radius: 3rem;
+                    }
+
+                    .range1{
+                        width: var(--stat1);
+                    }
+
+                    .range2{
+                        width: var(--stat2);
+                    }
+
+                    .range3{
+                        width: var(--stat3);
+                    }
+                }
+            }
+            
+            .single-stat:nth-child(2){
+                .line{
+                    .range{
+                        background: var(--darkGreenColor);
+                    }
+                }
+            }
+        }
+    }
+}

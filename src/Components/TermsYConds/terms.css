@@ -1,0 +1,18 @@
+.uppercase{
+    text-transform: uppercase;
+}
+
+.terms-and-conditions{
+    overflow-y: scroll;
+    height: 100%;
+    /* background-color: pink; */
+    text-align: start;
+    padding: 1.5rem;
+
+    .paragraph{
+        p{
+            padding-inline: 1rem;
+            text-align: justify;
+        }
+    }
+}

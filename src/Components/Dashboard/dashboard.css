@@ -1,0 +1,431 @@
+.dashboard{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100%;
+    min-height: 100vh;
+    transition: .5s;
+    align-items: center;
+    justify-items: center;
+    background: var(--lightBackground);
+
+    .loading{
+        position: absolute;
+        justify-items: center;
+        align-content: center;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.5);
+    
+        .loading-icon{
+          font-size: 2.5rem;
+          animation: icon-spin-animation infinite 1s linear;
+        }
+    }
+
+
+    .top-bar{
+        width: 100%;
+        height: 60px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 10px;
+
+        .search{
+            position: relative;
+            width: 100%;
+            margin: 0 10px;
+            display: flex;
+            flex-direction: row;
+
+            .px-1{
+                padding-left: 1rem;
+            }
+
+            .input-control{
+                border-radius: .5rem;
+                padding: 5px 20px;
+                outline: none;
+                border: 1px solid var(--greyText);
+                font-size: 1rem;
+                margin: 0 .5rem;
+
+            }
+
+            .search-date-range{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                .range-date-picker{
+                    cursor: pointer;
+                    max-width: 100px;
+                }
+            }
+
+            .search-button{
+                color: var(--whiteColor);
+                background: var(--darkGreenColor);
+                border-radius: .6rem;
+                justify-content: center;
+                align-items: center;
+                padding: .4rem .7rem;
+                cursor: pointer;
+            }
+
+            .icon{
+                font-size: 1.25rem;
+                color: var(--greyText);
+            }
+        }        
+
+        .options{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: .75rem;
+            margin-left: 3rem;
+            flex: 1;
+
+            .interface-button{
+                border: none;
+                padding: .7rem;
+                border-radius: 1rem;
+                box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+                color: var(--whiteColor);
+                background: var(--darkGreenColor);
+                margin: .5rem 1rem;
+                cursor: pointer;
+
+                .icon{
+                    font-size: 2rem;
+                }
+
+                &:hover{
+                    color: var(--darkGreenColor);
+                    background: var(--lightBackground);
+                    border: 1px solid var(--darkGreenColor);
+                }
+            }
+        }
+
+        .user{
+            position: relative;
+            cursor: pointer;
+            object-fit: cover;
+            padding-right: 1rem;
+            flex: 1;
+            text-align: end;
+
+            .avatar{
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+            }
+        }
+    }
+
+    .card-boxes{
+        position: relative;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 1rem;
+
+        .card{
+            position: relative;
+            background: var(--whiteColor);
+            padding: 1.2rem;
+            margin: 0 .5rem;
+            border-radius: 1rem;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+            text-align: start;
+
+            .numbers{
+                position: relative;
+                font-weight: 700;
+                font-size: 2.25rem;
+                color: var(--darkGreenColor);
+            }
+
+            .card-name{
+                color: var(--darkColor);
+                font-size: 1.1rem;
+            }
+
+            .icon-box{
+                font-size: 1.5rem;
+                color: var(--greyText);
+            }
+
+            &:hover{
+                background: var(--lightGreenColor);
+
+                .numbers, .card-name, .icon-box{
+                    color: var(--whiteColor);
+                }
+            }
+        }
+    }
+
+
+    .business{
+        position: relative;
+        width: 96%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem 0;
+
+        .contact-form{
+            display: flex;
+            flex-direction: column;
+            background: var(--whiteColor);
+            padding: 1rem;
+            border-radius: .6rem;
+            height: 375px;
+            justify-content: center;
+            align-items: center;
+            
+            .contact-form-header{
+                text-align: center;
+                font-weight: bolder;
+                padding-right: 1.2rem;
+                
+                h2{
+                    text-align: center;
+                    text-transform: uppercase;
+                    color: var(--darkGreenColor);
+                }
+            }
+            
+            .contact-form-body{
+
+                .contact-form-row{
+                    display: flex;
+                    
+                    
+                    .contact-form-group{
+                        display: flex;
+                        flex-direction: column;
+                        padding: .5rem 0;
+                        text-align: start;
+
+                        label{
+                            width: 100%;
+                            font-weight: 400;
+                            font-size: .8rem;
+                            padding: 0 0 .4rem 1rem;
+                        }
+
+                        .date-picker{
+                            cursor: pointer;
+                        }
+    
+                        .form-control{
+                            border: none;
+                            height: 2rem;
+                            width: 125px;
+                            margin: 0 .5rem;
+                            line-height: 2rem;
+                            padding-left: .5rem;
+                            border-radius: .5rem;
+                            background: var(--lightBackground);
+    
+                            &:focus{
+                                outline-color: var(--darkGreenColor);
+                            }
+    
+    
+                        }
+                    }
+
+                    .buttons{
+                        width: 100%;
+
+                        button{
+                            height: 2rem;
+                            width: 6rem;
+                            margin: 1rem;
+                            border-radius: .7rem;
+                            border: none;
+                            color: var(--darkGreenColor);
+                            font-weight: 700;
+                            background: var(--greyText);
+                            cursor: pointer;
+
+                            &:hover{
+                                color: var(--whiteColor);
+                                background-color: var(--darkGreenColor);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .recent-orders{
+            max-width: 900px;
+        }
+        
+        .recent-orders, .stats{
+            padding: 1rem;
+            display: grid;
+            flex-basis: 100%;
+            max-height: 375px;
+            overflow-y: scroll;
+            position: relative;
+            border-radius: 1rem;
+            align-content: flex-start;
+            margin: 0 .5rem .5rem 1rem;
+            background: var(--whiteColor);
+            box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+
+
+            .card-header{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                text-transform: uppercase;
+
+                h2{
+                    font-weight: 600;
+                    color: var(--darkGreenColor);
+                }
+
+                .icon{
+                    color: var(--darkGreenColor);
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    padding: .5rem;
+                    border-radius: .4rem;
+
+                    &:hover{
+                        color: var(--whiteColor);
+                        background: var(--darkGreenColor);
+                    }
+                }
+
+                .btn-dashboard{
+                    position: relative;
+                    padding: .8rem 1.5rem;
+                    background: var(--darkGreenColor);
+                    text-decoration: none;
+                    color: var(--whiteColor);
+                    border-radius: 1rem;
+                }
+            }
+
+            .booking-table{
+                width: 100%;
+                border-collapse: collapse;
+
+                .w-100px{
+                    display: inline-block;
+                    width: 100px;
+                    text-align: center;
+
+                    border-radius: 1rem;
+                    padding: 0 .5rem;
+                    border: 1px solid var(--whiteColor);
+                }
+
+                .uppercase{
+                    text-transform: uppercase;
+                }
+
+                .text-end{
+                    text-align: end;
+                    padding-right: 1rem;
+                }
+
+                .text-start{
+                    text-align: start;
+                    padding-left: 1rem;
+                }
+
+                .paid{
+                    display: inline-block;
+                    color: var(--whiteColor);
+                    background: var(--darkGreenColor);
+                    font-weight: 500;
+                    border-radius: 1rem;
+                    padding: 0 .5rem;
+                    width: 100px;
+                    text-align: center;
+                    border: 1px solid var(--whiteColor);
+                }
+
+                .pending{
+                    display: inline-block;
+                    color: var(--whiteColor);
+                    background: orangered;
+                    border-radius: 1rem;
+                    padding: 0 .5rem;
+                    width: 100px;
+                    text-align: center;
+                    border: 1px solid var(--whiteColor);
+                }
+
+                .booked{
+                    display: inline-block;
+                    color: var(--whiteColor);
+                    background: var(--greyText);
+                    border-radius: 1rem;
+                    padding: 0 .5rem;
+                    width: 100px;
+                    text-align: center;
+                    border: 1px solid var(--whiteColor);
+                }
+
+                tbody{
+                    tr{
+                        color: var(--darkColor);
+                        border-bottom: 1px solid var(--darkGreenColor);
+                        line-height: 1.5rem;
+
+                        &:hover{
+                            color: var(--whiteColor);
+                            background: var(--darkGreenColor);
+                        }
+
+                        &:last-child{
+                            border-bottom: none;
+                        }
+                    }
+                }
+            }
+
+            .pagination{
+                display: flex;
+                justify-content: center;
+                margin-top: 1rem;
+
+                .page{
+                    border: none;
+                    height: 2rem;
+                    width: 2rem;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    margin: 0 1rem;
+
+                    &:hover{
+                        color: var(--whiteColor);
+                        background-color: var(--darkGreenColor);
+                    }
+                }
+            }
+        }
+    }
+}
