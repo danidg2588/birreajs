@@ -7,7 +7,7 @@ import { AuthProvider } from './Components/AuthProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter basename="/">
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <AuthProvider>
         <App />
     </AuthProvider>
