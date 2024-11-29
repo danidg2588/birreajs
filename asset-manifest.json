@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/birreajs/static/css/main.892925ba.css",
+    "main.js": "/birreajs/static/js/main.946d358c.js",
+    "index.html": "/birreajs/index.html",
+    "main.892925ba.css.map": "/birreajs/static/css/main.892925ba.css.map",
+    "main.946d358c.js.map": "/birreajs/static/js/main.946d358c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.892925ba.css",
+    "static/js/main.946d358c.js"
+  ]
+}
