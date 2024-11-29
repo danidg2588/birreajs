@@ -15,7 +15,7 @@ import { Dashboard } from './Components/Dashboard/Dashboard';
 function App() {
   return (
     <Routes>
-      <Route index path="/" element={<Home/>}></Route>
+      <Route index path="/birreajs" element={<Home/>}></Route>
       <Route path='/terminos-y-condiciones' element={<TermsYConds/>}></Route>
       <Route path='/consultar' element={<Consultar />}></Route>
       <Route path='/sign-in' element={<Authentication/>}></Route>
