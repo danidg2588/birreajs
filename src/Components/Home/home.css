@@ -327,12 +327,16 @@ footer{
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-height: 500px){
   main{
-    overflow: hidden !important;
+    footer{
+      display: none !important;
+    }
   }
+}
+
+@media screen and (max-width: 500px) {
   .wizard{
-    overflow: hidden !important;
     box-shadow: none !important;
 
     .input-wrapper{
@@ -351,8 +355,6 @@ footer{
   }
 
   footer{
-    width: 90%;
-
     .home-link.link{
       margin: 0 !important;
     }

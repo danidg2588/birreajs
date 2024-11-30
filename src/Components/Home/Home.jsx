@@ -24,15 +24,16 @@ import { BizSelector } from '../BizSelector/BizSelector';
 
 import axios from 'axios';
 import PhoneInput from '../PhoneInput/PhoneInput';
+import SportSelector from '../SportSelector/SportSelector';
 
 
 export const Home = () => {
     const [background,setBackground] = useState(null)
-    const [stepper,setStepper] = useState(1)
+    const [stepper,setStepper] = useState(0)
     const [cost,setCost] = useState(0);
     const [isLoading,setIsLoading] = useState(true)
   
-    
+    const [sport,setSport] = useState(null)
     const [cancha,setCancha] = useState(null)
     const [courtsList, setCourtsList] = useState([])
     const [date, setDate] = useState(new Date(new Date(new Date().setMinutes(0)).setHours(0)));
@@ -66,6 +67,7 @@ export const Home = () => {
                 'hours':bookedHours,
                 'business':cancha,
                 'phone':cellphone,
+                'sport':sport,
         },
         {
             headers: {
@@ -93,10 +95,11 @@ export const Home = () => {
             params:{
                 'requested_date':date,
                 'hours':bookedHours,
+                'sport':sport,
                 }
             })
             .then(function (response) {
-                console.log(response.data)
+                // console.log(response.data)
                 setCourtsList(response.data)
                 setStepper(4)
             })
@@ -143,13 +146,20 @@ export const Home = () => {
             document.getElementById('business-selector').selectedIndex = 0
             setCancha(null)
             setStepper(stepper - 1)
-        } else if (stepper > 1 && stepper < 9) {
+        } else if (stepper > 0 && stepper < 9) {
             setStepper(stepper - 1)
         }
       }
 
     const handleStepperForward = () => {
-        if (stepper === 1)
+        if (stepper === 0){
+            if (sport){
+                setError({error0:false})
+                setStepper(1)
+            } else {
+                setError({error0:true})
+            }
+        } else if (stepper === 1)
         {
             if (date){
                 setStepper(2)
@@ -229,9 +239,21 @@ export const Home = () => {
 
                 <div className="wizard-container">
 
+                    <div className={stepper === 0 ? "stage" : "d-none"}>
+                        <span className="title">
+                            ¿Deporte?
+                        </span>
+                        <div className="search-bar-container">
+                            <SportSelector setSport={setSport} setStepper={setStepper} />
+                        </div>
+                        <span className={error.error0 ? "warning-text" : "d-none"}>
+                            Seleccione un deporte.
+                        </span>
+                    </div>
+
                     <div className={stepper === 1 ? "stage" : "d-none"}>
                         <span className="title">
-                            ¿Cuando?
+                            ¿Cuando? {sport}
                         </span>
                         <div className="search-bar-container">
                             <DatePickerInput date={date} setDate={setDate} setStepper={setStepper} />
@@ -317,7 +339,7 @@ export const Home = () => {
                 </div>
 
                 <div className={stepper === 7 ? "d-none" : "button-wrapper"}>
-                    {stepper === 1 ?
+                    {stepper === 0 ?
                     null
                     :
                     <button
@@ -327,7 +349,7 @@ export const Home = () => {
                         Atrás
                     </button>  
                     }
-                    {stepper >= 1 && stepper < 6 ?
+                    {stepper >= 0 && stepper < 6 ?
 
                     <button
                         className="home-btn"
