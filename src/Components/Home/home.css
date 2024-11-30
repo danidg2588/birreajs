@@ -241,8 +241,8 @@ main{
                 padding: 5px 10px;
 
                 &:hover{
-                  background: var(--primary);
                   color: var(--secondary);
+                  background-color: var(--primary);
                   cursor: pointer;
                 }
               }
@@ -327,7 +327,39 @@ footer{
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 500px) {
+  main{
+    overflow: hidden !important;
+  }
+  .wizard{
+    overflow: hidden !important;
+    box-shadow: none !important;
+
+    .input-wrapper{
+      max-width: 84% !important;
+    }
+    
+    .wizard-card{
+      display: none;
+    }
+    .wizard-wrapper{
+      border: none !important;
+      box-shadow: none !important;
+      width: 90vw;
+
+    }
+  }
+
+  footer{
+    width: 90%;
+
+    .home-link.link{
+      margin: 0 !important;
+    }
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 600px) {
   .wizard{
     box-shadow: none !important;
     
