@@ -252,7 +252,7 @@ export const Home = () => {
 
                     <div className={stepper === 1 ? "stage" : "d-none"}>
                         <span className="title">
-                            ¿Cuando? {sport}
+                            ¿Cuando?
                         </span>
                         <div className="search-bar-container">
                             <DatePickerInput date={date} setDate={setDate} setStepper={setStepper} />
