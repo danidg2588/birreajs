@@ -99,7 +99,6 @@ export const Home = () => {
                 }
             })
             .then(function (response) {
-                // console.log(response.data)
                 setCourtsList(response.data)
                 setStepper(4)
             })
