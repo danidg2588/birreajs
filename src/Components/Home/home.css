@@ -355,9 +355,7 @@ footer{
   }
 
   footer{
-    .home-link.link{
-      margin: 0 !important;
-    }
+    display: none;
   }
 }
 
@@ -371,6 +369,12 @@ footer{
     .wizard-wrapper{
       border: none !important;
       box-shadow: none !important
+    }
+  }
+
+  footer{
+    .home-link.link{
+      margin: 0 !important;
     }
   }
 }
