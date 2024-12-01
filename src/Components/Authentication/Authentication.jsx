@@ -1,22 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import "./authentication.css"
+import axios from 'axios';
+
 
 import DatePicker from 'react-datepicker'
 
   export const Authentication = () => {
-    
+
+    const [token,setToken] = useState()
+    const [isLoaindg, setIsLoading] = useState(true)
     const [login, setLogin] = useState({
       email: "",
       password: "",
-  });
+    });
 
   const [registerStep,setRegisterStep] = useState(0)
 
   const handleSubmitEvent = (e) => {
       e.preventDefault();
-      // alert(login.username)
+
       if (login.username !== "" && login.password !== "") {
-          alert("working ok")
+        axios.post("https://danilo2588.pythonanywhere.com/authentication", {
+            'username':login.email,
+            'password':login.password,       },
+        {
+            headers: {
+                Authorization: "3903f7137fc462eb862138432511cc4011c8dcb8",
+            },
+        })
+        .then( function(response){
+            setToken(response.data)
+        })
+        .catch(function (error){
+        console.log(error)
+        })
+        .finally(function(){
+            setIsLoading(false)
+        })
       } else {
           alert("please provide a valid input");
       }
@@ -69,17 +89,9 @@ import DatePicker from 'react-datepicker'
                   </>
                   :
                   <>
-                      <input type="text" className='control-input' placeholder='Credit Card Number' />
-                      <input type="number" className='control-input' placeholder='XXX Number' defaultValue="000" min={100} max={999} />
-                      <DatePicker 
-                        value={new Date()}
-                        openToDate={new Date()}
-                        minDate={new Date()}
-                        dateFormat="MM/yyyy"
-                        showMonthYearPicker
-                        placeholderText='Expiration date'
-                        className='control-input'
-                      />
+                        <input type="text" className='control-input' placeholder='Nombre del negocio' />
+                        <input type="text" className='control-input' placeholder='Dirección' />
+                        <input type="text" className='control-input' placeholder='Deportes' />
                   </>
                   }
                       <div style={{display:"flex"}}>
