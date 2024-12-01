@@ -3,9 +3,8 @@ import { FaLocationDot } from "react-icons/fa6";
 
 export const BizSelector = ({courtsList, setCancha, setCost, setStepper}) => {
     const handleSelectBiz = (value) => {
-      console.log(value)
         setCancha(value)
-        // setStepper(5)
+        setStepper(5)
     }
   return (
     <div className="input-wrapper">
