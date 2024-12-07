@@ -10,7 +10,7 @@ import RegisteredUserContent from './Components/RegisteredUserContent';
 import { Dashboard } from './Components/Dashboard/Dashboard';
 
 
-
+const token = localStorage.getItem("birrea.app")
 
 function App() {
   return (
@@ -18,10 +18,15 @@ function App() {
       <Route index path="/" element={<Home/>}></Route>
       <Route path='/terminos-y-condiciones' element={<TermsYConds/>}></Route>
       <Route path='/consultar' element={<Consultar />}></Route>
+      
+      {token ?
+      <Route path="/dashboard" element={<Dashboard />} />
+      :
       <Route path='/sign-in' element={<Authentication/>}></Route>
-      <Route element={<RegisteredUserContent />}>
+      }
+      {/* <Route element={<RegisteredUserContent />}>
               <Route path="/dashboard" element={<Dashboard />} />
-      </Route>
+      </Route> */}
     </Routes>
   );
 }

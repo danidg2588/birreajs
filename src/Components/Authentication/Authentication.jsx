@@ -1,44 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import "./authentication.css"
 import axios from 'axios';
-
+import { useNavigate } from "react-router-dom";
 
 import DatePicker from 'react-datepicker'
 
   export const Authentication = () => {
-
+    const navigate = useNavigate();
     const [token,setToken] = useState()
     const [isLoaindg, setIsLoading] = useState(true)
     const [login, setLogin] = useState({
-      email: "",
-      password: "",
+      email: null,
+      password: null,
     });
+    const [error,setError] = useState(null)
 
   const [registerStep,setRegisterStep] = useState(0)
 
   const handleSubmitEvent = (e) => {
       e.preventDefault();
+      setIsLoading(true)
 
       if (login.username !== "" && login.password !== "") {
         axios.post("https://danilo2588.pythonanywhere.com/authentication", {
             'username':login.email,
-            'password':login.password,       },
-        {
-            headers: {
-                Authorization: "3903f7137fc462eb862138432511cc4011c8dcb8",
-            },
+            'password':login.password,
         })
         .then( function(response){
-            setToken(response.data)
+            if (response.status == 200 && response.data.token)
+            {
+                setToken(response.data.token)
+                localStorage.setItem("birrea.app",response.data.token)
+            }
         })
         .catch(function (error){
-        console.log(error)
+            console.log(error)
         })
         .finally(function(){
+            navigate('/dashboard')
             setIsLoading(false)
         })
       } else {
-          alert("please provide a valid input");
+          alert("error")
       }
   };
 
@@ -121,7 +124,7 @@ import DatePicker from 'react-datepicker'
                       placeholder='usuario@email.com'
                       aria-describedby="user-email"
                       aria-invalid="false"
-                      onChange={(val) => handleUsername(val)}
+                      onChange={(val) => handleUsername(val.target.value)}
                       autoCapitalize='none'
                       autoFocus={true}
                       className='control-input'
@@ -133,7 +136,7 @@ import DatePicker from 'react-datepicker'
                       placeholder='contraseña'
                       aria-describedby="user-password"
                       aria-invalid="false"
-                      onChange={(val)=> handlePassword(val)}
+                      onChange={(val)=> handlePassword(val.target.value)}
                       className='control-input'
                   />
                   <a>Recuperar contraseña</a>
