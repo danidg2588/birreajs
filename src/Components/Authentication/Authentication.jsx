@@ -29,7 +29,7 @@ import DatePicker from 'react-datepicker'
         .then( function(response){
             if (response.status == 200 && response.data.token)
             {
-                setToken(response.data.token)
+                // setToken(response.data.token)
                 localStorage.setItem("birrea.app",response.data.token)
             }
         })
