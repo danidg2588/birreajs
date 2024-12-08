@@ -14,7 +14,6 @@ const ProtectedRoutes = () => {
 
   useEffect(() => {
     setToken(localStorage.getItem("birrea.app"))
-    console.log(token,"useeEffect")
   },[])
 
   const handleSubmitEvent = (e) => {
@@ -29,12 +28,8 @@ const ProtectedRoutes = () => {
         .then( function(response){
             if (response.status == 200 && response.data.token)
             {
-              console.log(token,"post response")
-
               localStorage.setItem("birrea.app",response.data.token)
               setToken(response.data.token)
-            } else {
-              console.log(response)
             }
         })
         .catch(function (error){

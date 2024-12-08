@@ -71,7 +71,7 @@ export const Home = () => {
         },
         {
             headers: {
-                Authorization: "3903f7137fc462eb862138432511cc4011c8dcb8",
+                Authorization: "5a77174f81f459f4978816fece4ee724f2afb9f3",
             },
         })
         .then( function(response){
@@ -91,7 +91,7 @@ export const Home = () => {
         try
         {
         axios.get("https://danilo2588.pythonanywhere.com/book", {
-            headers: {'Authorization':"3903f7137fc462eb862138432511cc4011c8dcb8"},
+            headers: {'Authorization':"5a77174f81f459f4978816fece4ee724f2afb9f3"},
             params:{
                 'requested_date':date,
                 'hours':bookedHours,
@@ -119,7 +119,7 @@ export const Home = () => {
             try
             {
                 axios.get('https://danilo2588.pythonanywhere.com/background', {
-                  headers: {"Authorization":"3903f7137fc462eb862138432511cc4011c8dcb8"},
+                  headers: {"Authorization":"5a77174f81f459f4978816fece4ee724f2afb9f3"},
                   Timeout:3500,
                 })
                 .then(function (response) {

@@ -1,47 +1,57 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import "./authentication.css"
-import axios from 'axios';
 import { CiBasketball } from "react-icons/ci";
-import DatePicker from 'react-datepicker'
 
   export const Authentication = ({login, isLoading, setLogin, handleSubmitEvent}) => {
 
-    const [error,setError] = useState(null)
+    const [resetLogin,setResetLogin] = useState({
+        email:null,
+        confirmation:null,
+        password1:null,
+        password2:null,
+    })
 
-  const [registerStep,setRegisterStep] = useState(0)
+    const [registerStep,setRegisterStep] = useState(0)
 
-  const handleUsername = (val) => {
-      if ((String(val).includes('@')) & (String(val).includes('.')) ) {
-          setLogin({
-              ...login,
-              email: val,
-          })
-      }
-  }
+    const handleUsername = (val) => {
+        if ((String(val).includes('@')) & (String(val).includes('.')) ) {
+            setLogin({
+                ...login,
+                email: val,
+            })
+        }
+    }
 
-  const handlePassword = (val) => {
-      setLogin({
-          ...login,
-          password:val,
-      });
-  }
+    const handlePassword = (val) => {
+        setLogin({
+            ...login,
+            password:val,
+        });
+    }
 
-  const handlePaymentProcess = (e) => {
-      e.preventDefault()
-      if (registerStep === 0){
-          setRegisterStep(registerStep+1)
-      } else if (registerStep === 1){
-          setRegisterStep(registerStep-1)
-      }
-  }
+    const handleBack = (e) => {
+        e.preventDefault()
+        setRegisterStep(registerStep-1)
+    }
+
+    const handleResetPassword = (e) => {
+        e.preventDefault()
+
+        if (resetLogin.email && registerStep == 0)
+        {
+            setRegisterStep(registerStep+1)
+        } else {
+            alert("asfsf")
+        }
+    }
 
 
 
-  const [isActive,setIsActive] = useState(false)
+    const [isActive,setIsActive] = useState(false)
 
-  function Switch4User() {
-      setIsActive(!isActive)
-  }
+    function Switch4User() {
+        setIsActive(!isActive)
+    }
 
   return (
   <div className='authentication'>
@@ -54,34 +64,43 @@ import DatePicker from 'react-datepicker'
         <div className='auth-container'>
             <div className={isActive?"form-container sign-up active":"form-container sign-up"}>
                 <form id='create-account-form'>
-                    <h1>REGISTRARME</h1>
+                    <h1>RESTABLECER</h1>
                     {registerStep === 0 ?
                     <>
-                        <input type="text" className='control-input cc-number' placeholder='Email' id='cc-number'/>
-                        <input type="password" className='control-input cc-expires' placeholder='Enter a password' id='cc-expires'/>
-                        <input type="password" className='control-input' placeholder='Repeat your password'/>
+                        <label htmlFor="">Ingresa tu correo</label>
+                        <input type="text" onChange={(val) => setResetLogin({email:val.target.value})} className='control-input cc-number' placeholder='Email' id='cc-number'/>
+                    </>
+                    : registerStep === 1 ?
+                    <>
+                        <label htmlFor="">Ingresa el código enviado a tu correo</label>
+                        <input type="text" className='control-input' placeholder='Código' />
                     </>
                     :
                     <>
-                            <input type="text" className='control-input' placeholder='Nombre del negocio' />
-                            <input type="text" className='control-input' placeholder='Dirección' />
-                            <input type="text" className='control-input' placeholder='Deportes' />
+                        <input type="password" className='control-input' placeholder='Nueva contraseña' />
+                        <input type="password" className='control-input' placeholder='Repetir nueva contraseña' />
                     </>
                     }
                         <div style={{display:"flex"}}>
-                        {registerStep===0?
-                            <button id='register' onClick={handlePaymentProcess}>
+                        {registerStep === 0?
+                        <>
+                            <button onClick={handleResetPassword}>
                                 Siguiente
                             </button>
-                        :
-                        <>
-                        <button onClick={handlePaymentProcess}>
-                            Atrás
-                        </button>
-                        <button>
-                            Registrar
-                        </button>
                         </>
+                        : registerStep < 2 ?
+                        <>
+                            <button onClick={handleBack}>
+                                Atrás
+                            </button>
+                            <button onClick={handleResetPassword}>
+                                Siguiente
+                            </button>
+                        </>
+                        :
+                        <button onClick={handleResetPassword}>
+                            Actualizar
+                        </button>
                         }
                         </div>
                 </form>
@@ -110,7 +129,6 @@ import DatePicker from 'react-datepicker'
                         onChange={(val)=> handlePassword(val.target.value)}
                         className='control-input'
                     />
-                    <a>Recuperar contraseña</a>
                     <button >Entrar</button>
                 </form>
             </div>
@@ -119,19 +137,19 @@ import DatePicker from 'react-datepicker'
                     <div className={isActive?"active toggle-panel toggle-left":"toggle-panel toggle-left"}>
                         <h2>BIENVENIDO!</h2>
                         <p>
-                            Utiilzar tu email y contraseña para acceder a la plataforma y gestionar tus reservas.
+                            Si ya estás registrado puedes utiilzar tu email y contraseña para acceder a la plataforma de gestión de reservas.
                         </p>
                         <button onClick={Switch4User}>
-                            Entrar
+                            Ir
                         </button>
                     </div>
                     <div className={isActive?"active toggle-panel toggle-right":"toggle-panel toggle-right"}>
-                        <h2>REGISTRARME</h2>
+                        <h2 className='uppercase'>Restablecer</h2>
                         <p>
-                            Registrar mi negocio para usar las funciones de la plataforma.
+                            Restablecer mi contraseña para acceder al tablero de información de negocios.
                         </p>
-                        <button onClick={Switch4User} id="login">
-                            REGISTRARME
+                        <button onClick={Switch4User} id="login" className='upppercase'>
+                            Restablecer
                         </button>
                     </div>
                 </div>
