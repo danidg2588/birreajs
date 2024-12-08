@@ -4,6 +4,7 @@ import { IoIosArrowBack, IoIosArrowForward, IoIosTennisball } from "react-icons/
 import { FaCalendar, FaMoneyBillWaveAlt, FaArrowAltCircleDown, FaBookmark, FaSave } from "react-icons/fa";
 import DatePicker from 'react-datepicker'
 import ReactApexCharts from 'react-apexcharts'
+import { useNavigate } from "react-router-dom";
 
 
 import './dashboard.css'
@@ -11,6 +12,7 @@ import './dashboard.css'
 export const Dashboard = () => {
 
     let today = new Date()
+    const navigate = useNavigate();
 
     const [isLoading, setIsLoading] = useState(true)
     const [date1, setDate1] = useState(new Date())

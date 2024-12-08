@@ -6,27 +6,23 @@ import { Home } from './Components/Home/Home';
 import { Authentication } from './Components/Authentication/Authentication';
 import { TermsYConds } from './Components/TermsYConds/TermsYConds';
 import Consultar from './Components/Consultar/Consultar';
-import RegisteredUserContent from './Components/RegisteredUserContent';
 import { Dashboard } from './Components/Dashboard/Dashboard';
+import ProtectedRoutes from './Components/ProtectedRoutes';
+import { useEffect, useState } from 'react';
 
 
-const token = localStorage.getItem("birrea.app")
 
-function App() {
+function App() {  
+  
   return (
     <Routes>
       <Route index path="/" element={<Home/>}></Route>
       <Route path='/terminos-y-condiciones' element={<TermsYConds/>}></Route>
       <Route path='/consultar' element={<Consultar />}></Route>
-      
-      {token ?
-      <Route path="/dashboard" element={<Dashboard />} />
-      :
-      <Route path='/sign-in' element={<Authentication/>}></Route>
-      }
-      {/* <Route element={<RegisteredUserContent />}>
+      {/* <Route path='/sign-in' element={<Authentication/>}></Route> */}
+      <Route element={<ProtectedRoutes />}>
               <Route path="/dashboard" element={<Dashboard />} />
-      </Route> */}
+      </Route>
     </Routes>
   );
 }
