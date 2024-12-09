@@ -18,9 +18,9 @@ function SportSelector({setSport, setStepper}) {
             className='select-date-picker searching-text text-center'
         >
             <option value="0" disabled>Selecciona tu deporte favorito</option>
-            <option value="1">Fútbol</option>
-            <option value="2">Padel</option>
-            <option value="3">Béisbol</option>
+            <option value="futbol">Fútbol</option>
+            <option value="padel">Padel</option>
+            <option value="beisbol">Béisbol</option>
         </select>
     </div>
   )
