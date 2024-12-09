@@ -304,10 +304,8 @@ export const Home = () => {
                         </span>
                         <div className="search-bar-container">
                             <PhoneInput cellphone={cellphone} setCellphone={setCellphone} />
-                            {/* <EmailInput emailAddress={emailAddress} setEmailAddress={setEmailAddress} /> */}
                         </div>
                         <span className={error.error5 ? "warning-text" : "d-none"}>
-                            {/* Introduzca un email válido. */}
                             Introduzca un número válido sin guiones.
                         </span>
                     </div>

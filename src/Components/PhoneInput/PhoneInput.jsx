@@ -10,7 +10,7 @@ function PhoneInput({cellphone, setCellphone}) {
           type="tel"
           maxLength={8}
           className='searching-text text-center' 
-          placeholder="6YYYXXXX"
+          placeholder="60001234"
           value={cellphone}
           onChange={(e)=>setCellphone(e.target.value)}
           />
