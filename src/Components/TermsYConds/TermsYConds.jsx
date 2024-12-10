@@ -28,7 +28,7 @@ export const TermsYConds = () => {
                 No usamos tus datos más que los que ingresas para realizar la reserva de tu cancha.
               </p>
               <p>
-              Tu correo electrónico será registrado en tus reservas para enviarte la confirmación de la misma, y de no utilizar tu reserva o no cancelar (llama a la cancha para cancelar si no la vas a utilizar) nos reservamos el derecho a suspenderte las reservas.
+              Tu número de teléfono será solamente almacenado para comprobar que ya lo haz autenticado anteriomente en tus reservas, no te enviaremos ningún tipo de mensajes y puedes solicitar que tus datos sean borrados enviando un correo a reservas@birrea.com.
               </p>
             </div>
 

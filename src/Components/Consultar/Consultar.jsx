@@ -42,7 +42,6 @@ const Consultar = () => {
           try
           {
               axios.get('https://danilo2588.pythonanywhere.com/background', {
-                // headers: {"Authorization":"5a77174f81f459f4978816fece4ee724f2afb9f3"},
                 Timeout:3500,
               })
               .then(function (response) {

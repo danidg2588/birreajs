@@ -5,14 +5,13 @@ import { FaCalendar, FaMoneyBillWaveAlt, FaArrowAltCircleDown, FaBookmark, FaSav
 import DatePicker from 'react-datepicker'
 import ReactApexCharts from 'react-apexcharts'
 import { useNavigate } from "react-router-dom";
-
+import axios from 'axios';
 
 import './dashboard.css'
 
 export const Dashboard = () => {
-
+    const token = localStorage.getItem("birrea.app")
     let today = new Date()
-    const navigate = useNavigate();
 
     const [isLoading, setIsLoading] = useState(true)
     const [date1, setDate1] = useState(new Date())
@@ -30,6 +29,8 @@ export const Dashboard = () => {
         email:null,
     })
 
+    const [bookingsList, setBookingsList] = useState([])
+
     const [showGraph, setShowGraph] = useState(false)
 
     const [graph,setGraph] = useState({
@@ -39,7 +40,6 @@ export const Dashboard = () => {
                 id:'basic-bar',
                 toolbar:{
                     show:true,
-
                 },
             },
 
@@ -61,10 +61,81 @@ export const Dashboard = () => {
     })
 
     useEffect(() => {
-        setTimeout(() => {
+        axios.get('https://danilo2588.pythonanywhere.com/authentication', {
+            Timeout:3500,
+            headers: {"Authorization": token},
+        })
+        .then(function (response) {
+            // console.log(response.data.bookings)
+            setBookingsList(response.data.bookings)
+        })
+        .catch(function (error){
+        console.log(error)
+        })
+        .finally(function(){
             setIsLoading(false)
-        },2000)
-    },[])
+        })
+
+        },[])
+
+
+    const updateStatus = (id) => {
+        setIsLoading(true)
+        
+        let status = document.getElementById("booking-status-"+id);
+        let status1
+
+        if (status.getAttribute("data-status") == "pendiente")
+            {
+                status.classList.remove("pendiente")
+                status.innerHTML = "confirmado"
+                status.classList.add("confirmado")
+                status.setAttribute("data-status","confirmado")
+                status1 = "confirmado"
+            } else if (status.getAttribute("data-status") == "confirmado")
+            {
+                status.classList.remove("confirmado")
+                status.innerHTML = "cancelado"
+                status.classList.add("cancelado")
+                status.setAttribute("data-status","cancelado")
+                status1 = "cancelado"
+
+            } else if (status.getAttribute("data-status") == "cancelado")
+            {
+                status.classList.remove("cancelado")
+                status.innerHTML = "pendiente"
+                status.classList.add("pendiente")
+                status.setAttribute("data-status","pendiente")
+                status1 = "pendiente"
+
+            }
+
+        axios.post("https://danilo2588.pythonanywhere.com/status",
+            {
+                'booking':id,
+                'status':status1,
+            },
+            {
+                headers:{
+                    "Authorization": token
+                }
+            }
+        )
+        .then( function(response){
+            if (response.status == 200 && response.data){
+                alert(response.data)
+            }
+            
+        })
+        .catch(function (error){
+            console.log(error)
+        })
+        .finally(function(){
+            setIsLoading(false)
+        })
+
+        setIsLoading(false)
+      }
 
 
   return (
@@ -173,7 +244,7 @@ export const Dashboard = () => {
 
         <div className="business">
 
-        {showGraph ?
+        {showGraph == 1 ?
             <div id='stats' className="stats">
                 <div className="card-header">
                     <h2>Estadísticas</h2>
@@ -189,7 +260,7 @@ export const Dashboard = () => {
                     />
                 </div>
             </div>
-            :
+            : showGraph == 2 ?
             <div className="contact-form">
                 <div className="contact-form-header">
                     <h2>Nueva Reserva</h2>
@@ -253,6 +324,7 @@ export const Dashboard = () => {
                     </div>
                 </div>
             </div>
+            : null
             }
 
             <div className="recent-orders">
@@ -265,16 +337,22 @@ export const Dashboard = () => {
                         <tr className='uppercase'>
                             <th></th>
                             <th className='text-start'>
-                                Nombre
-                            </th>
-                            <th className='text-bold w-100px'>
                                 Orden
+                            </th>
+                            <th>
+                                Contacto
+                            </th>
+                            <th>
+                                Cancha
                             </th>
                             <th>
                                 Fecha
                             </th>
                             <th>
-                                Hora
+                                Horario
+                            </th>
+                            <th>
+                                Valor
                             </th>
                             <th className='text-end'>
                                 <span className="w-100px">
@@ -284,1084 +362,22 @@ export const Dashboard = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Santiago De Gracia
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Danilo De Gracia Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Danilo De Gracia Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Danilo De Gracia Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Danilo De Gracia Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Danilo De Gracia Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Danilo De Gracia Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Danilo De Gracia Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="paid">
-                                    Pago
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Rebeca Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="pending">
-                                    Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <FaBookmark />
-                            </td>
-                            <td className='text-start'>
-                                Danilo De Gracia Madrigal
-                            </td>
-                            <td>
-                                01-Q53GNY
-                            </td>
-                            <td>
-                                Dic 6, 2024
-                            </td>
-                            <td>
-                                6:00 PM
-                            </td>
-                            <td className='uppercase text-end'>
-                                <span className="booked">
-                                    Reserva
-                                </span>
-                            </td>
-                        </tr>
+                    {
+                    bookingsList.map((item) => 
+                        <tr key={item.id}>
+                            <td></td>
+                            <td>{item.confirmation}</td>
+                            <td>{item.phone}</td>
+                            <td>{item.field}</td>
+                            <td>{item.start.split('T')[0]}</td>
+                            <td>
+                                {item.start.split('T')[1].slice(0,5)} - {item.end.split('T')[1].slice(0,5)}
+                            </td>
+                            <td>${Number(item.cost).toFixed(2)}</td>
+                            <td id={"booking-status-"+item.id} data-status={item.status} className={item.status} onClick={() => updateStatus(item.id)}>{item.status}</td>
+                        </tr>)
+                    }
+                        
                     </tbody>
                 </table>
                 <div className="pagination">

@@ -355,7 +355,7 @@
                     padding-left: 1rem;
                 }
 
-                .paid{
+                .confirmado{
                     display: inline-block;
                     color: var(--whiteColor);
                     background: var(--darkGreenColor);
@@ -365,9 +365,13 @@
                     width: 100px;
                     text-align: center;
                     border: 1px solid var(--whiteColor);
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    font-size: var(--smallFontSize);
+                    font-weight: 400;
                 }
 
-                .pending{
+                .cancelado{
                     display: inline-block;
                     color: var(--whiteColor);
                     background: orangered;
@@ -376,9 +380,13 @@
                     width: 100px;
                     text-align: center;
                     border: 1px solid var(--whiteColor);
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    font-size: var(--smallFontSize);
+                    font-weight: 400;
                 }
 
-                .booked{
+                .pendiente{
                     display: inline-block;
                     color: var(--whiteColor);
                     background: var(--greyText);
@@ -387,13 +395,25 @@
                     width: 100px;
                     text-align: center;
                     border: 1px solid var(--whiteColor);
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    font-size: var(--smallFontSize);
+                    font-weight: 400;
+
+                    &:hover{
+                        cursor: pointer;
+                    }
                 }
 
                 tbody{
+                    .text-weight-400{
+                        color: red;
+                        font-weight: 400;
+                    }
                     tr{
                         color: var(--darkColor);
                         border-bottom: 1px solid var(--darkGreenColor);
-                        line-height: 1.5rem;
+                        line-height: 1.75rem;
 
                         &:hover{
                             color: var(--whiteColor);
@@ -402,6 +422,10 @@
 
                         &:last-child{
                             border-bottom: none;
+                        }
+
+                        td{
+                            line-height: 1rem;
                         }
                     }
                 }
