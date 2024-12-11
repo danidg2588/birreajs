@@ -397,17 +397,3 @@ footer{
     }
   }
 }
-
-/* @media screen and (min-width: 600px) and (max-width: 800px){
-  .wizard{
-    box-shadow: none !important;
-
-    .wizard-card{
-      display: none;
-
-    }
-    .wizard-wrapper{
-      border: none !important;
-    }
-  }
-} */
