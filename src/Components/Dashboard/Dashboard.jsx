@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { BsSearch, BsGraphUpArrow, BsBarChart, BsFillCalendarPlusFill } from "react-icons/bs";
 import { IoLogoWhatsapp, IoIosTennisball, IoMdLogOut, IoMdSettings } from "react-icons/io";
 import { LuRefreshCw } from "react-icons/lu";
-import { FaCalendar, FaMoneyBillWaveAlt, FaArrowAltCircleDown, FaBookmark } from "react-icons/fa";
+import { FaCalendar, FaMoneyBillWaveAlt, FaArrowAltCircleDown, FaBookmark, FaEdit, FaWindowClose, FaTrash } from "react-icons/fa";
 import DatePicker from 'react-datepicker'
 import ReactApexCharts from 'react-apexcharts'
 import { useNavigate } from "react-router-dom";
@@ -73,7 +73,6 @@ export const Dashboard = () => {
             headers: {"Authorization": token},
         })
         .then(function (response) {
-            // console.log(response.data.bookings)
             setBookingsList(response.data.bookings)
         })
         .catch(function (error){
@@ -124,49 +123,106 @@ export const Dashboard = () => {
         navigate("/")
     }
 
-    const updateStatus = (id) => {
+    const enableEdition = (id) => {
+        let edit = document.getElementById("edit-"+id)
+        let close = document.getElementById("close-"+id)
+        let trash = document.getElementById("trash-"+id)
+        let editable = document.getElementById("editable-"+id)
+        let status = document.getElementById("booking-status-"+id)
+
+        if (edit.classList.contains("d-none")){
+            edit.classList.remove("d-none")
+            close.classList.add("d-none")
+            trash.classList.add("d-none")
+
+            editable.classList.add("d-none")
+            status.classList.remove("d-none")
+        } else {
+            edit.classList.add("d-none")
+            close.classList.remove("d-none")
+            trash.classList.remove("d-none")
+
+            editable.classList.remove("d-none")
+            status.classList.add("d-none")
+        }
+    }
+
+
+
+    const deleteRecord = (id,new_status,action,confirmation) => {
+        if (window.confirm("¿Desea borrar la reserva "+confirmation+"?")){
+            setIsLoading(true)
+            axios.post("https://danilo2588.pythonanywhere.com/status",
+                {
+                    'booking':id,
+                    'status':new_status,
+                    'action':action,
+                },
+                {
+                    headers:{
+                        "Authorization": token
+                    }
+                }
+            )
+            .then( function(response){
+                if (response.status == 200 && response.data){
+                    alert(response.data.respuesta)
+                    let record = document.getElementById("record-for-"+id)
+                    loadBookings()
+                }
+                
+            })
+            .catch(function (error){
+                console.log(error)
+            })
+            .finally(function(){
+                setIsLoading(false)
+            })
+        }
+    }
+
+
+    const updateStatus = (id,new_status,action) => {
         setIsLoading(true)
         setTimer(0)
         let status = document.getElementById("booking-status-"+id);
-        let status1
 
-        if (status.getAttribute("data-status") == "pendiente")
-            {
-                status.querySelector('span').classList.remove("pendiente")
-                status.querySelector('span').innerHTML = "confirmado"
-                status.querySelector('span').classList.add("confirmado")
-                status.setAttribute("data-status","confirmado")
-                status1 = "confirmado"
-            } else if (status.getAttribute("data-status") == "confirmado")
-            {
-                status.querySelector('span').classList.remove("confirmado")
-                status.querySelector('span').innerHTML = "cancelado"
-                status.querySelector('span').classList.add("cancelado")
-                status.setAttribute("data-status","cancelado")
-                status1 = "cancelado"
-
-            } else if (status.getAttribute("data-status") == "cancelado")
-            {
-                status.querySelector('span').classList.remove("cancelado")
-                status.querySelector('span').innerHTML = "restringido"
-                status.querySelector('span').classList.add("restringido")
-                status.setAttribute("data-status","restringido")
-                status1 = "restringido"
-            } else if (status.getAttribute("data-status") == "restringido")
-            {
-                status.querySelector('span').classList.remove("restringido")
-                status.querySelector('span').innerHTML = "pendiente"
-                status.querySelector('span').classList.add("pendiente")
-                status.setAttribute("data-status","pendiente")
-                status1 = "pendiente"
-            } else {
-                status1 = "pendiente"
-            }
+        if (action !== "delete")
+        {
+            if (status.getAttribute("data-status") == "pendiente")
+                {
+                    status.querySelector('span').classList.remove("pendiente")
+                    status.querySelector('span').innerHTML = "confirmado"
+                    status.querySelector('span').classList.add("confirmado")
+                    status.setAttribute("data-status","confirmado")
+                } else if (status.getAttribute("data-status") == "confirmado")
+                {
+                    status.querySelector('span').classList.remove("confirmado")
+                    status.querySelector('span').innerHTML = "cancelado"
+                    status.querySelector('span').classList.add("cancelado")
+                    status.setAttribute("data-status","cancelado")
+    
+                } else if (status.getAttribute("data-status") == "cancelado")
+                {
+                    status.querySelector('span').classList.remove("cancelado")
+                    status.querySelector('span').innerHTML = "restringido"
+                    status.querySelector('span').classList.add("restringido")
+                    status.setAttribute("data-status","restringido")
+                } else if (status.getAttribute("data-status") == "restringido")
+                {
+                    status.querySelector('span').classList.remove("restringido")
+                    status.querySelector('span').innerHTML = "pendiente"
+                    status.querySelector('span').classList.add("pendiente")
+                    status.setAttribute("data-status","pendiente")
+                } else {
+                }
+        } 
 
         axios.post("https://danilo2588.pythonanywhere.com/status",
             {
                 'booking':id,
-                'status':status1,
+                'status':new_status,
+                'action':action,
             },
             {
                 headers:{
@@ -178,16 +234,16 @@ export const Dashboard = () => {
             if (response.status == 200 && response.data){
                 alert(response.data)
             }
-            
+            loadBookings()
         })
         .catch(function (error){
             console.log(error)
         })
         .finally(function(){
+            enableEdition(id)
             setIsLoading(false)
         })
 
-        setIsLoading(false)
       }
 
 
@@ -322,7 +378,6 @@ export const Dashboard = () => {
                         <>
                         <thead>
                         <tr className='uppercase'>
-                            <th></th>
                             <th className='text-start'>
                                 Orden
                             </th>
@@ -342,7 +397,7 @@ export const Dashboard = () => {
                                 Valor
                             </th>
                             <th className='text-end'>
-                                <span className="w-100px">
+                                <span>
                                     Status
                                 </span>
                             </th>
@@ -351,8 +406,7 @@ export const Dashboard = () => {
                     <tbody>
                     {
                         bookingsList.map((item) => 
-                        <tr key={item.id}>
-                            <td></td>
+                        <tr key={item.id} id={"record-for-"+item.id}>
                             <td className='text-start'>{item.confirmation}</td>
                             <td>
                             <Link
@@ -370,10 +424,27 @@ export const Dashboard = () => {
                                 {item.start.split('T')[1].slice(0,5)} - {item.end.split('T')[1].slice(0,5)}
                             </td>
                             <td>${Number(item.cost).toFixed(2)}</td>
-                            <td id={"booking-status-"+item.id} data-status={item.status} className='text-end' onClick={() => updateStatus(item.id)}>
+                            <td id={"editable-"+item.id} className='d-none text-end'>
+                                <select
+                                    onChange={e => updateStatus(item.id,e.target.value,"update")}
+                                    className="w-100px"
+                                    defaultValue={item.status}
+                                >
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="confirmado">Confirmado</option>
+                                    <option value="restringido">Restringido</option>
+                                    <option value="cancelado">Cancelado</option>
+                                </select>
+                            </td>
+                            <td id={"booking-status-"+item.id} data-status={item.status} className='text-end'>
                                 <span className={item.status}>
                                     {item.status}
-                                </span> 
+                                </span>
+                            </td>
+                            <td className='w-100px'>
+                                <FaEdit id={"edit-"+item.id} className='icon editable' onClick={() => enableEdition(item.id)} />
+                                <FaTrash id={"trash-"+item.id} className='icon delete editable d-none' onClick={() => deleteRecord(item.id,"cancelado","delete",item.confirmation)}/>
+                                <FaWindowClose id={"close-"+item.id} className='icon editable d-none' onClick={() => enableEdition(item.id)} />
                             </td>
                         </tr>)
                     }   

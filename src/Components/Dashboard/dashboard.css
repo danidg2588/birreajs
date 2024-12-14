@@ -26,6 +26,10 @@
         }
     }
 
+    .d-none{
+        display: none;
+    }
+
 
     .top-bar{
         width: 100%;
@@ -81,6 +85,10 @@
             .icon{
                 font-size: 1.25rem;
                 color: var(--greyText);
+            }
+
+            .delete{
+                color: red !important;
             }
         }        
 
@@ -342,14 +350,17 @@
                 width: 100%;
                 border-collapse: collapse;
 
-                .w-100px{
+                .w-100{
+                    width: 100%;
+                }
+
+                .w-150px{
                     display: inline-block;
-                    width: 100px;
+                    min-width: 150px;
                     text-align: center;
 
                     border-radius: 1rem;
                     padding: 0 .5rem;
-                    border: 1px solid var(--whiteColor);
                 }
 
                 .uppercase{
@@ -358,12 +369,14 @@
 
                 .text-end{
                     text-align: end;
-                    padding-right: 1rem;
+                    /* padding-right: 2rem; */
+
                 }
 
                 .text-start{
                     text-align: start;
-                    padding-left: 1rem;
+                    padding-left: 2rem;
+
                 }
 
                 .confirmado{
@@ -377,7 +390,6 @@
                     text-align: center;
                     border: 1px solid var(--whiteColor);
                     text-transform: uppercase;
-                    cursor: pointer;
                     font-size: var(--smallFontSize);
                     font-weight: 400;
                 }
@@ -392,7 +404,6 @@
                     text-align: center;
                     border: 1px solid var(--whiteColor);
                     text-transform: uppercase;
-                    cursor: pointer;
                     font-size: var(--smallFontSize);
                     font-weight: 400;
                 }
@@ -407,7 +418,6 @@
                     text-align: center;
                     border: 1px solid var(--whiteColor);
                     text-transform: uppercase;
-                    cursor: pointer;
                     font-size: var(--smallFontSize);
                     font-weight: 400;
                 }
@@ -422,13 +432,8 @@
                     text-align: center;
                     border: 1px solid var(--whiteColor);
                     text-transform: uppercase;
-                    cursor: pointer;
                     font-size: var(--smallFontSize);
                     font-weight: 400;
-
-                    &:hover{
-                        cursor: pointer;
-                    }
                 }
 
                 tbody{
@@ -444,17 +449,27 @@
 
                         &:hover{
                             color: var(--whiteColor);
+                            background: var(--darkGreenColor);
+
                             .whatsapp{
                                 color: var(--whiteColor);
                             }
-                            background: var(--darkGreenColor);
+
+                            .editable{
+                                color: var(--whiteColor);
+                            }
                         }
 
                         &:last-child{
                             border-bottom: none;
                         }
 
+                        .w-100px{
+                            width: 75px;
+                        }
                         td{
+
+
                             .whatsapp{
                                 font-weight: 600;
                                 text-decoration: none;
@@ -463,6 +478,19 @@
                                 .icon{
                                     font-size: 1rem;
                                     padding-right: .5rem;
+                                }
+                            }
+
+                            .icon.editable{
+                                text-align: center;
+                            }
+
+                            .editable, .status{
+                                cursor: pointer;
+                                padding-inline-end: .5rem;
+
+                                &:hover{
+                                    transform: scale(1.25)
                                 }
                             }
                         }
