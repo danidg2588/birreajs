@@ -179,8 +179,7 @@ export const Home = () => {
                 setError({error4:true})
             }
         } else if (stepper === 5){
-            // if (emailAddress.length > 5 && emailAddress.includes("@") && emailAddress.includes(".")){
-            if (cellphone && cellphone.length === 8 && cellphone >= 60000000 && cellphone <= 70000000){
+            if (String(cellphone).length === 9 && String(cellphone).includes("-")){
                 setError({error5:false})
                 setStepper(6)
             } else {

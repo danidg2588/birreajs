@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { BsSearch, BsGraphUpArrow, BsBarChart, BsFillCalendarPlusFill } from "react-icons/bs";
-import { IoIosArrowBack, IoIosArrowForward, IoIosTennisball } from "react-icons/io";
-import { FaCalendar, FaMoneyBillWaveAlt, FaArrowAltCircleDown, FaBookmark, FaSave } from "react-icons/fa";
+import { IoLogoWhatsapp, IoIosTennisball, IoMdLogOut, IoMdSettings } from "react-icons/io";
+import { LuRefreshCw } from "react-icons/lu";
+import { FaCalendar, FaMoneyBillWaveAlt, FaArrowAltCircleDown, FaBookmark } from "react-icons/fa";
 import DatePicker from 'react-datepicker'
 import ReactApexCharts from 'react-apexcharts'
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { Link } from 'react-router-dom'
+
 
 import './dashboard.css'
 
 export const Dashboard = () => {
+    
+    const navigate = useNavigate();
     const token = localStorage.getItem("birrea.app")
     let today = new Date()
 
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
     const [date1, setDate1] = useState(new Date())
     const [date2, setDate2] = useState(new Date())
     const [search,setSearch] = useState({
@@ -29,9 +34,9 @@ export const Dashboard = () => {
         email:null,
     })
 
-    const [bookingsList, setBookingsList] = useState([])
-
-    const [showGraph, setShowGraph] = useState(false)
+    const [bookingsList, setBookingsList] = useState(null)
+    const [timer,setTimer] = useState(0)
+    const [showOption, setShowOption] = useState(0)
 
     const [graph,setGraph] = useState({
         options:{
@@ -60,7 +65,9 @@ export const Dashboard = () => {
         ]
     })
 
-    useEffect(() => {
+    const loadBookings = () => {
+        setIsLoading(true)
+        setTimer(0)
         axios.get('https://danilo2588.pythonanywhere.com/authentication', {
             Timeout:3500,
             headers: {"Authorization": token},
@@ -74,14 +81,52 @@ export const Dashboard = () => {
         })
         .finally(function(){
             setIsLoading(false)
+            setTimer(0)
         })
 
+        setIsLoading(false)
+    }
+
+    useEffect(() => {
+        loadBookings()
         },[])
 
+    useEffect(() => {
+        setTimeout(() => {
+            setTimer(timer + 1)
+        },1000);
+
+        if (timer === 120)
+        {
+            loadBookings()
+        }
+    },[timer])
+
+
+    const handleOptions = (opt) => {
+        setIsLoading(true)
+        setShowOption(opt)
+        if (opt === 0){
+            console.log("option to show: 0")
+        } else if (opt === 1) {
+            console.log("option to show: 1")
+        } else if (opt === 2) {
+            console.log("option to show: 2")
+        }
+        setIsLoading(false)
+        setTimer(0)
+    }
+
+    const logOut = () => {
+        setIsLoading(true)
+        localStorage.clear("birrea.app")
+        navigate("/sign-in")
+        setIsLoading(false)
+    }
 
     const updateStatus = (id) => {
         setIsLoading(true)
-        
+        setTimer(0)
         let status = document.getElementById("booking-status-"+id);
         let status1
 
@@ -103,11 +148,19 @@ export const Dashboard = () => {
             } else if (status.getAttribute("data-status") == "cancelado")
             {
                 status.classList.remove("cancelado")
+                status.innerHTML = "restringido"
+                status.classList.add("restringido")
+                status.setAttribute("data-status","restringido")
+                status1 = "restringido"
+            } else if (status.getAttribute("data-status") == "restringido")
+            {
+                status.classList.remove("restringido")
                 status.innerHTML = "pendiente"
                 status.classList.add("pendiente")
                 status.setAttribute("data-status","pendiente")
                 status1 = "pendiente"
-
+            } else {
+                status1 = "pendiente"
             }
 
         axios.post("https://danilo2588.pythonanywhere.com/status",
@@ -178,16 +231,29 @@ export const Dashboard = () => {
                 </div>
             </div>
             <div className="options">
-                <button className="interface-button" onClick={() => setShowGraph(!showGraph)}>
+                <button className={showOption === 0 ? "disabled" : "interface-button"} onClick={showOption === 0 ? null : ()=>{handleOptions(0)}}>
+                    <FaCalendar className='icon' />
+                </button>
+
+                <button className={showOption === 1 ? "disabled" : "interface-button"} onClick={showOption === 1 ? null : ()=>{handleOptions(1)}}>
+                    <BsFillCalendarPlusFill className='icon'/>
+                </button>
+
+                <button className={showOption === 2 ? "disabled" : "interface-button"} onClick={showOption === 2 ? null : ()=>{handleOptions(2)}}>
                     <BsBarChart className='icon' />
                 </button>
-                <button className='interface-button'>
-                    <BsFillCalendarPlusFill className='icon' onClick={()=>{setShowGraph(false)}} />
+
+                <button className={showOption === 3 ? "disabled" : "interface-button"} onClick={showOption === 3 ? null : ()=>{handleOptions(3)}}>
+                    <IoMdSettings className='icon' />
+                </button>
+
+                <button className="interface-button">
+                    <IoMdLogOut className='icon' onClick={() => {logOut()}} />
                 </button>
             </div>
-            <div className="user">
+            {/* <div className="user">
                 <img className='avatar' src="https://i1.rgstatic.net/ii/profile.image/1024190459179008-1621197442085_Q128/Danilo-De-Gracia.jpg" alt="" />
-            </div>
+            </div> */}
         </div>
 
         <div className="card-boxes">
@@ -244,7 +310,87 @@ export const Dashboard = () => {
 
         <div className="business">
 
-        {showGraph == 1 ?
+        {showOption === 0 ?
+            <div className="recent-orders">
+                <div className="card-header">
+                    <h2>Listado de Reservas</h2>
+                    <LuRefreshCw className='icon' onClick={loadBookings}/>
+                </div>
+                <table className='booking-table'>
+                    {
+                        bookingsList ?
+                        <>
+                        <thead>
+                        <tr className='uppercase'>
+                            <th></th>
+                            <th className='text-start'>
+                                Orden
+                            </th>
+                            <th>
+                                Contacto
+                            </th>
+                            <th>
+                                Cancha
+                            </th>
+                            <th>
+                                Fecha
+                            </th>
+                            <th>
+                                Horario
+                            </th>
+                            <th>
+                                Valor
+                            </th>
+                            <th className='text-end'>
+                                <span className="w-100px">
+                                    Status
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        bookingsList.map((item) => 
+                        <tr key={item.id}>
+                            <td></td>
+                            <td className='text-start'>{item.confirmation}</td>
+                            <td>
+                            <Link
+                                to={"https://wa.me/"+ String(item.cellphone).replace("-","")+"?text=Hola!%20Te%20escribo%20con%20referencia%20a%20tu%20reserva%20"+item.confirmation}
+                                target="_blank"
+                                className='whatsapp'
+                            >
+                                <IoLogoWhatsapp className='icon' />
+                                {item.cellphone}
+                            </Link>
+                            </td>
+                            <td>{item.field}</td>
+                            <td>{item.start.split('T')[0]}</td>
+                            <td>
+                                {item.start.split('T')[1].slice(0,5)} - {item.end.split('T')[1].slice(0,5)}
+                            </td>
+                            <td>${Number(item.cost).toFixed(2)}</td>
+                            <td id={"booking-status-"+item.id} data-status={item.status} className='text-end' onClick={() => updateStatus(item.id)}>
+                                <span className={item.status}>
+                                    {item.status}
+                                </span> 
+                            </td>
+                        </tr>)
+                    }   
+                    </tbody>
+                        </>
+                        :
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td className='w-100 text-weight-400'>No hay reservas para mostrar.</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        : showOption === 2 ?
+        <>
             <div id='stats' className="stats">
                 <div className="card-header">
                     <h2>Estadísticas</h2>
@@ -260,7 +406,24 @@ export const Dashboard = () => {
                     />
                 </div>
             </div>
-            : showGraph == 2 ?
+
+            <div id='stats' className="stats">
+                <div className="card-header">
+                    <h2>Estadísticas</h2>
+                </div>
+
+                <div className="graphics">
+                    <ReactApexCharts 
+                        options={graph.options}
+                        series={graph.series}
+                        type="area"
+                        width="500"
+                        className="chart"
+                    />
+                </div>
+            </div>
+        </>
+        : showOption === 1 ?
             <div className="contact-form">
                 <div className="contact-form-header">
                     <h2>Nueva Reserva</h2>
@@ -304,7 +467,7 @@ export const Dashboard = () => {
                     <div className="contact-form-row">
                         <div className="contact-form-group">
                             <label htmlFor="">Tiempo</label>
-                            <input value={booking.hours} type="number" min={1} max={8} className="form-control" placeholder='2'/>
+                            <input value={booking.hours} type="number" min={1} max={8} defaultValue={1} className="form-control" placeholder='2'/>
                         </div>
                         <div className="contact-form-group">
                             <label htmlFor="">Correo</label>
@@ -314,7 +477,7 @@ export const Dashboard = () => {
                     <div className="contact-form-row">
                     
                         <div className="buttons">
-                            <button className="contact-form-button" onClick={()=>{setShowGraph(true)}}>
+                            <button className="contact-form-button" onClick={()=>{setShowOption(true)}}>
                                 Cancelar
                             </button>
                             <button className="contact-form-button">
@@ -326,66 +489,6 @@ export const Dashboard = () => {
             </div>
             : null
             }
-
-            <div className="recent-orders">
-                <div className="card-header">
-                    <h2>Listado de Reservas</h2>
-                    <FaSave className='icon' />
-                </div>
-                <table className='booking-table'>
-                    <thead>
-                        <tr className='uppercase'>
-                            <th></th>
-                            <th className='text-start'>
-                                Orden
-                            </th>
-                            <th>
-                                Contacto
-                            </th>
-                            <th>
-                                Cancha
-                            </th>
-                            <th>
-                                Fecha
-                            </th>
-                            <th>
-                                Horario
-                            </th>
-                            <th>
-                                Valor
-                            </th>
-                            <th className='text-end'>
-                                <span className="w-100px">
-                                    Status
-                                </span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {
-                    bookingsList.map((item) => 
-                        <tr key={item.id}>
-                            <td></td>
-                            <td>{item.confirmation}</td>
-                            <td>{item.phone}</td>
-                            <td>{item.field}</td>
-                            <td>{item.start.split('T')[0]}</td>
-                            <td>
-                                {item.start.split('T')[1].slice(0,5)} - {item.end.split('T')[1].slice(0,5)}
-                            </td>
-                            <td>${Number(item.cost).toFixed(2)}</td>
-                            <td id={"booking-status-"+item.id} data-status={item.status} className={item.status} onClick={() => updateStatus(item.id)}>{item.status}</td>
-                        </tr>)
-                    }
-                        
-                    </tbody>
-                </table>
-                <div className="pagination">
-                    <button className='page'><IoIosArrowBack className='icon' /></button>
-                    <button className='page'>1</button>
-                    <button className='page'><IoIosArrowForward className='icon' /></button>
-                </div>
-            </div>
 
         </div>
     </div>

@@ -94,23 +94,32 @@
             flex: 1;
 
             .interface-button{
-                border: none;
-                padding: .7rem;
-                border-radius: 1rem;
-                box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+                cursor: pointer;
                 color: var(--whiteColor);
                 background: var(--darkGreenColor);
-                margin: .5rem 1rem;
-                cursor: pointer;
-
-                .icon{
-                    font-size: 2rem;
-                }
 
                 &:hover{
                     color: var(--darkGreenColor);
                     background: var(--lightBackground);
                     border: 1px solid var(--darkGreenColor);
+                }
+            }
+
+            .disabled{
+                .icon{
+                    color: var(--greyText);
+                }
+            }
+
+            .interface-button, .disabled{
+                border: none;
+                padding: .7rem;
+                border-radius: 1rem;
+                box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+                margin: .5rem 1rem;
+
+                .icon{
+                    font-size: 2rem;
                 }
             }
         }
@@ -275,7 +284,8 @@
         }
 
         .recent-orders{
-            max-width: 900px;
+            max-width: 1200px;
+            width: 100%;
         }
         
         .recent-orders, .stats{
@@ -290,6 +300,7 @@
             margin: 0 .5rem .5rem 1rem;
             background: var(--whiteColor);
             box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+            padding-bottom: 3rem;
 
 
             .card-header{
@@ -374,7 +385,22 @@
                 .cancelado{
                     display: inline-block;
                     color: var(--whiteColor);
-                    background: orangered;
+                    background: orange;
+                    border-radius: 1rem;
+                    padding: 0 .5rem;
+                    width: 100px;
+                    text-align: center;
+                    border: 1px solid var(--whiteColor);
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    font-size: var(--smallFontSize);
+                    font-weight: 400;
+                }
+
+                .restringido{
+                    display: inline-block;
+                    color: var(--whiteColor);
+                    background: red;
                     border-radius: 1rem;
                     padding: 0 .5rem;
                     width: 100px;
@@ -407,16 +433,20 @@
 
                 tbody{
                     .text-weight-400{
-                        color: red;
+                        color: var(--darkGreenColor);
                         font-weight: 400;
                     }
                     tr{
                         color: var(--darkColor);
                         border-bottom: 1px solid var(--darkGreenColor);
-                        line-height: 1.75rem;
+                        /* line-height: 2rem; */
+                        height: 2rem;
 
                         &:hover{
                             color: var(--whiteColor);
+                            .whatsapp{
+                                color: var(--whiteColor);
+                            }
                             background: var(--darkGreenColor);
                         }
 
@@ -425,31 +455,21 @@
                         }
 
                         td{
-                            line-height: 1rem;
+                            .whatsapp{
+                                font-weight: 600;
+                                text-decoration: none;
+                                color: var(--darkGreenColor);
+
+                                .icon{
+                                    font-size: 1rem;
+                                    padding-right: .5rem;
+                                }
+                            }
                         }
                     }
                 }
             }
 
-            .pagination{
-                display: flex;
-                justify-content: center;
-                margin-top: 1rem;
-
-                .page{
-                    border: none;
-                    height: 2rem;
-                    width: 2rem;
-                    border-radius: 50%;
-                    cursor: pointer;
-                    margin: 0 1rem;
-
-                    &:hover{
-                        color: var(--whiteColor);
-                        background-color: var(--darkGreenColor);
-                    }
-                }
-            }
         }
     }
 }
