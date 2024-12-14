@@ -96,7 +96,7 @@ export const Dashboard = () => {
             setTimer(timer + 1)
         },1000);
 
-        if (timer === 120)
+        if (timer === 300)
         {
             loadBookings()
         }
@@ -120,8 +120,8 @@ export const Dashboard = () => {
     const logOut = () => {
         setIsLoading(true)
         localStorage.clear("birrea.app")
-        navigate("/sign-in")
         setIsLoading(false)
+        navigate("/")
     }
 
     const updateStatus = (id) => {

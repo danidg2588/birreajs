@@ -1,4 +1,4 @@
-import { Outlet, Navigate } from "react-router-dom"
+import { Outlet } from "react-router-dom"
 import axios from "axios"
 import React, { useEffect, useState } from 'react'
 import { Authentication } from "./Authentication/Authentication"
