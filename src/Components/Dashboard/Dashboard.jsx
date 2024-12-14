@@ -132,31 +132,31 @@ export const Dashboard = () => {
 
         if (status.getAttribute("data-status") == "pendiente")
             {
-                status.classList.remove("pendiente")
-                status.innerHTML = "confirmado"
-                status.classList.add("confirmado")
+                status.querySelector('span').classList.remove("pendiente")
+                status.querySelector('span').innerHTML = "confirmado"
+                status.querySelector('span').classList.add("confirmado")
                 status.setAttribute("data-status","confirmado")
                 status1 = "confirmado"
             } else if (status.getAttribute("data-status") == "confirmado")
             {
-                status.classList.remove("confirmado")
-                status.innerHTML = "cancelado"
-                status.classList.add("cancelado")
+                status.querySelector('span').classList.remove("confirmado")
+                status.querySelector('span').innerHTML = "cancelado"
+                status.querySelector('span').classList.add("cancelado")
                 status.setAttribute("data-status","cancelado")
                 status1 = "cancelado"
 
             } else if (status.getAttribute("data-status") == "cancelado")
             {
-                status.classList.remove("cancelado")
-                status.innerHTML = "restringido"
-                status.classList.add("restringido")
+                status.querySelector('span').classList.remove("cancelado")
+                status.querySelector('span').innerHTML = "restringido"
+                status.querySelector('span').classList.add("restringido")
                 status.setAttribute("data-status","restringido")
                 status1 = "restringido"
             } else if (status.getAttribute("data-status") == "restringido")
             {
-                status.classList.remove("restringido")
-                status.innerHTML = "pendiente"
-                status.classList.add("pendiente")
+                status.querySelector('span').classList.remove("restringido")
+                status.querySelector('span').innerHTML = "pendiente"
+                status.querySelector('span').classList.add("pendiente")
                 status.setAttribute("data-status","pendiente")
                 status1 = "pendiente"
             } else {
