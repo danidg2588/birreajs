@@ -410,7 +410,7 @@ export const Dashboard = () => {
                             <td className='text-start'>{item.confirmation}</td>
                             <td>
                             <Link
-                                to={"https://wa.me/"+ String(item.cellphone).replace("-","")+"?text=Hola!%20Te%20escribo%20con%20referencia%20a%20tu%20reserva%20"+item.confirmation}
+                                to={"https://wa.me/"+ String(item.cellphone).replace("-","")+"?text=Hola!%20Le%20escribo%20con%20referencia%20a%20tu%20reserva%20"+item.confirmation}
                                 target="_blank"
                                 className='whatsapp'
                             >

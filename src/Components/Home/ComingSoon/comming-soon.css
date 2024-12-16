@@ -1,0 +1,26 @@
+main{
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    text-align: center;
+  
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+    height: 100vh;
+
+    .centered-text{
+        color: var(--darkGreenColor);
+        display: block;
+
+        span{
+        }
+
+        h1{
+            text-transform: uppercase;
+            font-size: 3rem;
+            font-weight: 900;
+        }
+    }
+
+}
