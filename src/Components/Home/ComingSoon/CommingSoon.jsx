@@ -10,7 +10,7 @@ const CommingSoon = () => {
             </span>
 
             <h1>
-                Muy Pronto
+                Muy Pronto...
             </h1>
         </div>
     </main>

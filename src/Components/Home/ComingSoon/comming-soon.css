@@ -9,12 +9,10 @@ main{
     margin: auto;
     height: 100vh;
 
+    background-color: var(--darkGreenColor);
     .centered-text{
-        color: var(--darkGreenColor);
+        color: var(--whiteColor);
         display: block;
-
-        span{
-        }
 
         h1{
             text-transform: uppercase;
