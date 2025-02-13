@@ -19,6 +19,7 @@ function PhoneInput({cellphone, setCellphone}) {
       setCellphone(phone)
     }
   }
+  
   return (
     <div className="input-wrapper">
       <FaMobileAlt />

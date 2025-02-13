@@ -7,7 +7,6 @@ import { TermsYConds } from './Components/TermsYConds/TermsYConds';
 import Consultar from './Components/Consultar/Consultar';
 import { Dashboard } from './Components/Dashboard/Dashboard';
 import ProtectedRoutes from './Components/ProtectedRoutes';
-import { Authentication } from './Components/Authentication/Authentication';
 
 
 function App() {  
@@ -17,6 +16,8 @@ function App() {
       <Route index path="/" element={<Home/>}></Route>
       <Route path='/terminos-y-condiciones' element={<TermsYConds/>}></Route>
       <Route path='/consultar' element={<Consultar />}></Route>
+      <Route path="/dashboard1" element={<Dashboard />} />
+
       <Route element={<ProtectedRoutes  />}>
               <Route path="/dashboard" element={<Dashboard />} />
       </Route>

@@ -378,7 +378,7 @@ export const Home = () => {
                 target="_blank"
             >
                 <IoLogInSharp className='icon'/>
-                <span>Empresas</span>
+                <span>Iniciar sesión</span>
             </Link>
             <Link
                 className="home-link link"

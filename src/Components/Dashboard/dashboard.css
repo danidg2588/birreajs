@@ -291,12 +291,17 @@
             }
         }
 
+        .calendar{
+            max-width: 300px;
+            width: 100%;
+        }
+
         .recent-orders{
-            max-width: 1200px;
+            max-width: 900px;
             width: 100%;
         }
         
-        .recent-orders, .stats{
+        .recent-orders, .stats, .calendar{
             padding: 1rem;
             display: grid;
             flex-basis: 100%;

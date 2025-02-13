@@ -367,99 +367,114 @@ export const Dashboard = () => {
         <div className="business">
 
         {showOption === 0 ?
-            <div className="recent-orders">
-                <div className="card-header">
-                    <h2>Listado de Reservas</h2>
-                    <LuRefreshCw className='icon' onClick={loadBookings}/>
+            <>
+                <div className="calendar">
+                <DatePicker
+                        placeholderText='Seleccione una fecha'
+                        // showTimeInput
+                        selected={date2}
+                        onChange={(value) => {setDate2(value)}}
+                        openToDate={date2}
+                        minDate={today.setDate(today.getDate() - 60)}
+                        maxDate={today}
+                        className='input-control range-date-picker'
+                    />
                 </div>
-                <table className='booking-table'>
-                    {
-                        bookingsList ?
-                        <>
-                        <thead>
-                        <tr className='uppercase'>
-                            <th className='text-start'>
-                                Orden
-                            </th>
-                            <th>
-                                Contacto
-                            </th>
-                            <th>
-                                Cancha
-                            </th>
-                            <th>
-                                Fecha
-                            </th>
-                            <th>
-                                Horario
-                            </th>
-                            <th>
-                                Valor
-                            </th>
-                            <th className='text-end'>
-                                <span>
-                                    Status
-                                </span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        bookingsList.map((item) => 
-                        <tr key={item.id} id={"record-for-"+item.id}>
-                            <td className='text-start'>{item.confirmation}</td>
-                            <td>
-                            <Link
-                                to={"https://wa.me/"+ String(item.cellphone).replace("-","")+"?text=Hola!%20Le%20escribo%20con%20referencia%20a%20tu%20reserva%20"+item.confirmation}
-                                target="_blank"
-                                className='whatsapp'
-                            >
-                                <IoLogoWhatsapp className='icon' />
-                                {item.cellphone}
-                            </Link>
-                            </td>
-                            <td>{item.field}</td>
-                            <td>{item.start.split('T')[0]}</td>
-                            <td>
-                                {item.start.split('T')[1].slice(0,5)} - {item.end.split('T')[1].slice(0,5)}
-                            </td>
-                            <td>${Number(item.cost).toFixed(2)}</td>
-                            <td id={"editable-"+item.id} className='d-none text-end'>
-                                <select
-                                    onChange={e => updateStatus(item.id,e.target.value,"update")}
-                                    className="w-100px"
-                                    defaultValue={item.status}
-                                >
-                                    <option value="pendiente">Pendiente</option>
-                                    <option value="confirmado">Confirmado</option>
-                                    <option value="restringido">Restringido</option>
-                                    <option value="cancelado">Cancelado</option>
-                                </select>
-                            </td>
-                            <td id={"booking-status-"+item.id} data-status={item.status} className='text-end'>
-                                <span className={item.status}>
-                                    {item.status}
-                                </span>
-                            </td>
-                            <td className='w-100px'>
-                                <FaEdit id={"edit-"+item.id} className='icon editable' onClick={() => enableEdition(item.id)} />
-                                <FaTrash id={"trash-"+item.id} className='icon delete editable d-none' onClick={() => deleteRecord(item.id,"cancelado","delete",item.confirmation)}/>
-                                <FaWindowClose id={"close-"+item.id} className='icon editable d-none' onClick={() => enableEdition(item.id)} />
-                            </td>
-                        </tr>)
-                    }   
-                    </tbody>
-                        </>
-                        :
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td className='w-100 text-weight-400'>No hay reservas para mostrar.</td>
+                <div className="recent-orders">
+                    <div className="card-header">
+                        <h2>Listado de Reservas</h2>
+                        <LuRefreshCw className='icon' onClick={loadBookings}/>
+                    </div>
+                    <table className='booking-table'>
+                        {
+                            bookingsList ?
+                            <>
+                            <thead>
+                            <tr className='uppercase'>
+                                <th className='text-start'>
+                                    Orden
+                                </th>
+                                <th>
+                                    Contacto
+                                </th>
+                                <th>
+                                    Cancha
+                                </th>
+                                <th>
+                                    Fecha
+                                </th>
+                                <th>
+                                    Horario
+                                </th>
+                                <th>
+                                    Valor
+                                </th>
+                                <th className='text-end'>
+                                    <span>
+                                        Status
+                                    </span>
+                                </th>
                             </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            bookingsList.map((item) => 
+                            <tr key={item.id} id={"record-for-"+item.id}>
+                                <td className='text-start'>{item.confirmation}</td>
+                                <td>
+                                <Link
+                                    to={"https://wa.me/"+ String(item.cellphone).replace("-","")+"?text=Hola!%20Le%20escribo%20con%20referencia%20a%20tu%20reserva%20"+item.confirmation}
+                                    target="_blank"
+                                    className='whatsapp'
+                                >
+                                    <IoLogoWhatsapp className='icon' />
+                                    {item.cellphone}
+                                </Link>
+                                </td>
+                                <td>{item.field}</td>
+                                <td>{item.start.split('T')[0]}</td>
+                                <td>
+                                    {item.start.split('T')[1].slice(0,5)} - {item.end.split('T')[1].slice(0,5)}
+                                </td>
+                                <td>${Number(item.cost).toFixed(2)}</td>
+                                <td id={"editable-"+item.id} className='d-none text-end'>
+                                    <select
+                                        onChange={e => updateStatus(item.id,e.target.value,"update")}
+                                        className="w-100px"
+                                        defaultValue={item.status}
+                                    >
+                                        <option value="pendiente">Pendiente</option>
+                                        <option value="confirmado">Confirmado</option>
+                                        <option value="restringido">Restringido</option>
+                                        <option value="cancelado">Cancelado</option>
+                                    </select>
+                                </td>
+                                <td id={"booking-status-"+item.id} data-status={item.status} className='text-end'>
+                                    <span className={item.status}>
+                                        {item.status}
+                                    </span>
+                                </td>
+                                <td className='w-100px'>
+                                    <FaEdit id={"edit-"+item.id} className='icon editable' onClick={() => enableEdition(item.id)} />
+                                    <FaTrash id={"trash-"+item.id} className='icon delete editable d-none' onClick={() => deleteRecord(item.id,"cancelado","delete",item.confirmation)}/>
+                                    <FaWindowClose id={"close-"+item.id} className='icon editable d-none' onClick={() => enableEdition(item.id)} />
+                                </td>
+                            </tr>)
+                        }   
                         </tbody>
-                    }
-                </table>
-            </div>
+                            </>
+                            :
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td className='w-100 text-weight-400'>No hay reservas para mostrar.</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+            </>
+
         : showOption === 2 ?
         <>
             <div id='stats' className="stats">
