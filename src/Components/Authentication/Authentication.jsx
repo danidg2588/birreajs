@@ -44,6 +44,14 @@ export const Authentication = ({login, setLogin, handleSubmitEvent}) => {
         };
         loadBackground()
     },[]);
+
+    function handleStepBack() {
+        if (pageStep === 3){
+            setPageStep(1)
+        } else {
+            setPageStep(pageStep - 1)
+        }
+    }
     
 
     const handleUsername = (val) => {
@@ -111,105 +119,110 @@ export const Authentication = ({login, setLogin, handleSubmitEvent}) => {
             <h2>Entra, reserva y birrea.</h2>
             <p>Próximamente...</p>
         </div>
-        <div className='authentication' style={{backgroundImage:`url("${background}")`}}>
-            {isLoading ?
-                <div className="loading">
-                    <GiSoccerBall className="loading-icon" />
-                </div>
-            : null}
-            <div className="screener">
-                <h1 className='welcome-app-name'>Birrea App</h1>
+        <div className="authentication">
+            <div className="splash-header">
+                <img src="https://i.pinimg.com/originals/5b/e2/a4/5be2a4d983540f3545452b6aacf0fdf4.gif" alt="" />
             </div>
-            <div className={pageStep === 0? "main-container home-container":"main-container credentials-container"}>
-                {pageStep > 0?
-                <FaChevronLeft className='return-icon' onClick={()=>setPageStep(pageStep-1)}/>
-                :null}
-                <div className="container">
-                    {pageStep===0?
-                    <div className="buttons">
+            <div className={pageStep <= 1?"container collapsed":'container extended'}>
+            {pageStep > 1 ?
+            <FaChevronLeft className='return-icon' onClick={()=>handleStepBack()}/>
+            :null}
+                {pageStep === 0?
+                <>
+                    <div className="splash-body">
+                        <h2>¡Entra, reserva y birrea!</h2>
+                    </div>
+                    <div className="splash-footer">
+                        <div className="button-home-decoration"></div>
+                        <button to="/app" onClick={()=>setPageStep(1)} className='splash-home-button'>
+                            Entrar
+                        </button>
+                    </div>
+                </>
+                :pageStep === 1 ?
+                <>
+                    <div className="button-options">
                         <button onClick={()=>setPageStep(2)}>
                             Registrarme
                         </button>
-                        <button onClick={()=>setPageStep(1)}>
+                        <button onClick={()=>setPageStep(3)}>
                             Iniciar Sesión
                         </button>
+                    </div>            
+                </>
+                :pageStep === 2 ?
+                <>
+                    <div className="form-control">
+                        <label htmlFor="">Celular</label>
+                        <input type="text" inputMode='numeric' defaultValue={userInfo.phone} value={userInfo.phone} onChange={(val) => handlePhoneNumber(val.target.value)} className='control-input text-center' placeholder='6000-1234' maxLength={9}/>
                     </div>
-                    : pageStep === 1?
-                    <>
-                        <div className="form-control">
-                            <label htmlFor="">Celular</label>
-                            <input type="text" inputMode='numeric' defaultValue={userInfo.phone} value={userInfo.phone} onChange={(val) => handlePhoneNumber(val.target.value)} className='control-input text-center' placeholder='6000-1234' maxLength={9}/>
+                    <div className="form-control">
+                        <label htmlFor="">Ingresa el código enviado a tu correo</label>
+                        <div className="flex">
+                            <input type="text" maxLength={1} onChange={(e) => handleCode(e.target.value,0)} className='control-input confirmation-code' />
+                            <input type="text" maxLength={1} onChange={(e) => handleCode(e.target.value,1)} className='control-input confirmation-code' />
+                            <input type="text" maxLength={1} onChange={(e) => handleCode(e.target.value,2)} className='control-input confirmation-code' />
+                            <input type="text" maxLength={1} onChange={(e) => handleCode(e.target.value,3)} className='control-input confirmation-code' />
                         </div>
-                        <div className="form-control">
-                            <label htmlFor="">Contraseña</label>
-                            <div className='relative'>
-                                {visiblePwd?
-                                <FaLockOpen className='pswd-icon' onClick={()=>setVisiblePwd(!visiblePwd)} />
-                                :
-                                <FaLock className='pswd-icon' onClick={()=>setVisiblePwd(!visiblePwd)} />
-                                }
+                    </div>
+                    <div className="form-control">
+                        <button>Enviar código</button>
+                    </div>
+                </>
+                :pageStep === 3 ?
+                <>
+                    <div className="form-control">
+                        <label htmlFor="">Celular</label>
+                        <input type="text" inputMode='numeric' defaultValue={userInfo.phone} value={userInfo.phone} onChange={(val) => handlePhoneNumber(val.target.value)} className='control-input text-center' placeholder='6000-1234' maxLength={9}/>
+                    </div>
+                    <div className="form-control">
+                        <label htmlFor="">Contraseña</label>
+                        <div className='relative'>
+                            {visiblePwd?
+                            <FaLockOpen className='pswd-icon' onClick={()=>setVisiblePwd(!visiblePwd)} />
+                            :
+                            <FaLock className='pswd-icon' onClick={()=>setVisiblePwd(!visiblePwd)} />
+                            }
 
-                                <input type={visiblePwd?"text":"password"} className='control-input' placeholder='Contraseña' />
-                            </div>
+                            <input type={visiblePwd?"text":"password"} className='control-input' placeholder='Contraseña' />
                         </div>
-                        <div className="main-options">
-                            <span className='main-option-buttton' onClick={() => setPageStep(2)}>Restablecer contraseña</span>
-                        </div>
-                        <div className="form-control">
-                            <button>Entrar</button>
-                        </div>
-                    </>
-                    : pageStep === 2?
-                    <>
-                        <div className="form-control">
-                            <label htmlFor="">Celular</label>
-                            <input type="text" inputMode='numeric' defaultValue={userInfo.phone} value={userInfo.phone} onChange={(val) => handlePhoneNumber(val.target.value)} className='control-input text-center' placeholder='6000-1234' maxLength={9}/>
-                        </div>
-                        <div className="form-control">
-                            <label htmlFor="">Ingresa el código enviado a tu correo</label>
-                            <div className="flex">
-                                <input type="text" maxLength={1} onChange={(e) => handleCode(e.target.value,0)} className='control-input confirmation-code' />
-                                <input type="text" maxLength={1} onChange={(e) => handleCode(e.target.value,1)} className='control-input confirmation-code' />
-                                <input type="text" maxLength={1} onChange={(e) => handleCode(e.target.value,2)} className='control-input confirmation-code' />
-                                <input type="text" maxLength={1} onChange={(e) => handleCode(e.target.value,3)} className='control-input confirmation-code' />
-                            </div>
-                        </div>
-                        <div className="form-control">
-                            <button>Enviar código</button>
-                        </div>
-                    </>
-                    : pageStep === 3?
-                    <>
-                        <div className="form-control">
-                            <label htmlFor="">Celular</label>
-                            <input type="text" inputMode='numeric' defaultValue={userInfo.phone} value={userInfo.phone} onChange={(val) => handlePhoneNumber(val.target.value)} className='control-input text-center' placeholder='6000-1234' maxLength={9}/>
-                        </div>
-                        <div className="form-control">
-                            <label htmlFor="">Contraseña</label>
-                            <div className='relative'>
-                                {visiblePwd?
-                                <FaLockOpen className='pswd-icon' onClick={()=>setVisiblePwd(!visiblePwd)} />
-                                :
-                                <FaLock className='pswd-icon' onClick={()=>setVisiblePwd(!visiblePwd)} />
-                                }
+                    </div>
+                    <div className="main-options">
+                        <span className='main-option-buttton' onClick={() => setPageStep(2)}>Restablecer contraseña</span>
+                    </div>
+                    <div className="form-control">
+                        <button>Entrar</button>
+                    </div>
+                </>                
+                :pageStep === 4 ?
+                <>
+                    <div className="form-control">
+                        <label htmlFor="">Celular</label>
+                        <input type="text" inputMode='numeric' defaultValue={userInfo.phone} value={userInfo.phone} onChange={(val) => handlePhoneNumber(val.target.value)} className='control-input text-center' placeholder='6000-1234' maxLength={9}/>
+                    </div>
+                    <div className="form-control">
+                        <label htmlFor="">Contraseña</label>
+                        <div className='relative'>
+                            {visiblePwd?
+                            <FaLockOpen className='pswd-icon' onClick={()=>setVisiblePwd(!visiblePwd)} />
+                            :
+                            <FaLock className='pswd-icon' onClick={()=>setVisiblePwd(!visiblePwd)} />
+                            }
 
-                                <input type={visiblePwd?"text":"password"} className='control-input' placeholder='Contraseña' />
-                            </div>
+                            <input type={visiblePwd?"text":"password"} className='control-input' placeholder='Contraseña' />
                         </div>
-                        <div className="main-options">
-                            <Link className='main-option-buttton'>Restablecer contraseña</Link>
-                        </div>
-                        <div className="form-control">
-                            <button>Entrar</button>
-                        </div>
-                    </>
-                    :null
-                    }
-                </div>
+                    </div>
+                    <div className="main-options">
+                        <Link className='main-option-buttton'>Restablecer contraseña</Link>
+                    </div>
+                    <div className="form-control">
+                        <button>Entrar</button>
+                    </div>
+                </>
+                :null}
             </div>
         </div>
     </>
-
 )
   
 }
