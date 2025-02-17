@@ -1,292 +1,224 @@
-.authentication{
-
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100vh;
-
-    &::after{
-        content: '';
-        position: absolute; 
-        opacity: 0.75;
-        background-color: #c9d6ff;
-        background: linear-gradient(to right,#e2e2e2,var(--darkGreenColor));
-        width: 100%; 
-        height: 100%; 
-        z-index: -1;
+@media screen and (min-width: 500px) {
+    .desktop{
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+        background-color: var(--darkGreenColor);
+        min-height: 100vh;
+        justify-content: center;
+        align-items: center;
+        font-weight: 600;
     }
 
-    .loading{
-        position: absolute;
-        justify-items: center;
-        align-content: center;
-        z-index: 2;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(255, 255, 255, 0.5);
-    
-        .loading-icon{
-          font-size: 2.5rem;
-          animation: icon-spin-animation infinite 1s linear;
-        }
-    }
-
-    .auth-container{
-        background-color: #fff;
-        border-radius: 30px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.35);
-        position: relative;
-        overflow: hidden;
-        width: 768px;
-        max-width: 100%;
-        min-height: 480px;
-        max-width: 96%;
-        z-index: 1;
-        
-        p{
-            font-size: 14px;
-            line-height: 25px;
-            letter-spacing: 0.3px;
-            margin: 20px 0;
-            padding: 0 15%;
-        }
-
-        span{
-            font-size: 12px;
-        }
-
-        a{
-            color: #333;
-            font-size: 13px;
-            text-decoration: none;
-            margin: 15px 0 10px;
-        }
-
-        button{
-            background-color: var(--darkGreenColor);
-            color: #fff;
-            font-size: 12px;
-            padding: 10px 0;
-            border: 1px solid #fff;
-            border-radius: 8px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            margin: 10px 10px;
-            cursor: pointer;
-            width: 150px;
-            text-align: center;
-
-            &:hover{
-                /* filter: invert(); */
-                border: 1px var(--darkGreenColor) solid;
-                color: var(--darkGreenColor);
-                background-color: #fff;
-            }
-        }
-
-        button.hidden{
-            background-color: transparent;
-            border-color: #fff;
-            border: 1px #fff solid;
-        }
-
-        .customer-links{
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            padding-bottom: 1rem;
-        }
-
-        .link{
-            display: flex;
-            cursor: pointer;
-            font-weight: 400;
-            font-size: .75rem;
-            text-decoration: underline;
-        }
-
-        .text-start{
-            text-align: start;
-        }
-
-        .text-end{
-            text-align: end;
-        }
-
-        .text-center{
-            text-align: center;
-        }
-
-        form{
-            background-color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 40px;
-            height: 100%;
-        }
-
-        .control-input{
-            background-color: #eee;
-            border: none;
-            margin: 8px 0;
-            padding: 10px 15px;
-            font-size: 13px;
-            border-radius: 8px;
-            width: 275px;
-            max-width: 90% !important;
-            outline: none;
-
-            &:focus{
-                border: 1px var(--darkGreenColor) solid;
-            }
-        }
-
-        .confirmation-code{
-            height: 20px !important;
-            width: 15px !important;
-            margin: 5px 5px;
-            text-align: center;
-            font-size: 1.75rem;
-        }
-
-        .return.icon{
-            font-size: 1.5rem;
-            position: absolute;
-
-        }
-
-        .form-container{
-            position: absolute;
-            top: 0;
-            height: 100%;
-            transition: all 0.6s ease-in-out;
-
-            h1{
-                line-height: 20px;
-            }
-        }
-
-        .sign-in{
-            left:0;
-            width: 50%;
-            z-index: 2;
-        }
-
-        .active.sign-in{
-            transform: translateX(100%);
-        }
-
-        .sign-up{
-            left: 0;
-            width: 50%;
-            opacity: 0;
-            z-index: 1;
-        }
-
-        .active.sign-up{
-            transform: translateX(100%);
-            opacity: 1;
-            z-index: 5;
-            animation: move 0.6s;
-        }
-
-        .toggle-container{
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 50%;
-            height: 100%;
-            overflow: hidden;
-            transition: all 0.6s ease-in-out;
-            border-radius: 150px 0 0 100px;
-            z-index: 1000;
-            vertical-align: middle;
-            
-            .toggle{
-                /* background-color: var(--darkGreenColor); */
-                height: 100%;
-                color: #fff;
-                position: relative;
-                left: -100%;
-                height: 100%;
-                width: 200%;
-                transform: translateX(0);
-                transition: all 0.6s ease-in-out;
-                background: linear-gradient(to right,#5c6bc0,var(--darkGreenColor));
-            }
-        }
-
-        .active.toggle-container{
-            transform: translateX(-100%);
-            border-radius: 0 150px 100px 0;
-        }
-
-        .active.toggle{
-            transform: translateX(50%);
-        }
-
-        .toggle-panel{
-            position: absolute;
-            width: 50%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-            top: 0;
-            transform: translateX(0);
-            transition: all 0.6s ease-in-out;
-
-            &::before{
-                content: ''; 
-                background:  url('https://goldmedalsquared.com/wp-content/uploads/2023/10/how-many-serves-should-a-volleyball-team-miss-1-768x512.jpg');
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                position: absolute; 
-                opacity: 0.4;
-                width: 100%; 
-                height: 100%; 
-                z-index: -1;
-              }
-        }
-
-        .toggle-left{
-            transform: translateX(-200%);
-        }
-
-        .active.toggle-left{
-            transform: translateX(0);
-        }
-    
-        .toggle-right{
-            right: 0;
-            transform: translateX(0);
-        }
-
-        .active.toggle-right{
-            transform: translateX(200%);
-        }
-
+    .authentication{
+        display: none;
     }
 }
 
-@keyframes move {
-    0%, 49.99%{
-        opacity: 0;
-        z-index: 1;
+@media screen and (max-width: 500px) {
+    .desktop{
+        display: none;
     }
-    50%, 100%{
-        opacity: 1;
-        z-index: 5;
 
+    .authentication{
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        height: 100vh;
+        user-select: none;
+        transition: .5s;
+        position: relative;
+        justify-content: center;
+        background-position: cover;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: #fff;
+    
+        .loading{
+            position: absolute;
+            justify-items: center;
+            align-content: center;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.5);
+        
+            .loading-icon{
+              font-size: 2.5rem;
+              animation: icon-spin-animation infinite 1s linear;
+            }
+        }
+
+        .screener{
+            position: absolute;
+            justify-items: center;
+            align-content: center;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.5);
+
+        }
+    
+        .welcome-app-name{
+            text-transform: uppercase;
+            font-weight: 900;
+            color: var(--darkGreenColor);
+            flex: 1;
+        }
+            
+        .credentials-container{
+            height: 80%;
+            bottom: 0;
+        }
+    
+        .home-container{
+            height: 40%;
+            bottom: 0;
+        }
+    
+        button{
+            margin: .25rem 0;
+            color: var(--darkGreenColor);
+            background: #fff;
+            padding: .5rem 1rem;
+            border-radius: .5rem;
+            cursor: pointer;
+            font-weight: 600;
+            border: 2px solid #fff;
+            box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+
+            &:hover{
+                color: #fff;
+                background: var(--darkGreenColor);
+            }
+        }
+    
+        .main-container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            /* background-color: var(--transparentDarkGreenColor); */
+            background-image: linear-gradient(160deg, var(--darkGreenColor) 0%, var(--transparentDarkGreenColor) 100%);
+
+            animation: float 3s ease-in-out;
+            border-top-left-radius: 3.5rem;
+            border-top-right-radius: 3.5rem;
+            position: absolute;
+            transition: 1s;
+            bottom: -20px;
+
+            .return-icon{
+                font-size: 1.5rem;
+                color: #fff;
+                position: absolute;
+                top: 1.5rem;
+                left: 1.5rem;
+                padding: 1rem;
+                cursor: pointer;
+            }
+    
+            .container{
+                width: 100%;
+    
+                .buttons{
+                    display: flex;
+                    justify-content: space-evenly;
+                    width: 100%;
+                }
+            }
+        }
+    
+        .container{
+    
+            .form-control{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+    
+                .relative{
+                    position: relative;
+                }
+    
+                label{
+                    color: #fff;
+                }
+    
+                .control-input{
+                    background-color: #fff;
+                    border: none;
+                    margin: .75rem 0;
+                    padding: 10px 15px;
+                    font-size: 1rem;
+                    border-radius: .5rem;
+                    outline: none;
+                    font-size: 1rem;
+                    text-align: center;
+                    position: relative;
+        
+                    &:focus{
+                        border: 1px var(--darkGreenColor) solid;
+                    }
+                }
+
+                .confirmation-code{
+                    height: 20px !important;
+                    width: 15px !important;
+                    margin: 5px 5px;
+                    text-align: center;
+                    font-size: 1.75rem;
+                }
+    
+                .pswd-icon{
+                    position: absolute;
+                    right: 0;
+                    font-size: 1rem;
+                    z-index: 1;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    padding: 0 .5rem;
+                    cursor: pointer;
+                }
+            }
+    
+            .main-options{
+                justify-content: space-between;
+                display: flex;
+    
+                .main-option-buttton{
+                    font-size: .8rem;
+                    margin: 1rem 2rem;
+                    color: #fff;
+                    text-decoration: underline;
+                    text-underline-offset: .25rem;
+                    transition: .5s;
+
+                    &:hover{
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0);
     }
 }

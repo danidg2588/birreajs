@@ -13,12 +13,10 @@ function App() {
   
   return (
     <Routes>
-      <Route index path="/" element={<Home/>}></Route>
       <Route path='/terminos-y-condiciones' element={<TermsYConds/>}></Route>
       <Route path='/consultar' element={<Consultar />}></Route>
-      <Route path="/dashboard1" element={<Dashboard />} />
 
-      <Route element={<ProtectedRoutes  />}>
+      <Route path='/' element={<ProtectedRoutes  />}>
               <Route path="/dashboard" element={<Dashboard />} />
       </Route>
     </Routes>
