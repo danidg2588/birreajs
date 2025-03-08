@@ -8,7 +8,7 @@ const ProtectedRoutes = () => {
   const [token,setToken] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [login, setLogin] = useState({
-    email: null,
+    username: null,
     password: null,
   });
 
