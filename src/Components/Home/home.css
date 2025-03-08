@@ -87,9 +87,12 @@
 
     .footer{
         width: 100%;
+        flex: 1;
         border-top-left-radius: 3rem;
         border-top-right-radius: 3rem;
-        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background-color: var(--darkGreenColor);
         
         button{
