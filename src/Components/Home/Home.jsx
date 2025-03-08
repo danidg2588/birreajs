@@ -7,35 +7,40 @@ import { Link } from 'react-router-dom'
 const Home = () => {
     const [menu,setMenu] = useState(false)
   return (
-    <div className="main">
-        {menu?
-        <div className="main-menu">
-            <div className="close">
-                <IoClose className='menu-close-icon' onClick={()=>setMenu(false)}/>
+    <>
+        <div className="mobile">
+            {menu?
+            <div className="main-menu">
+                <div className="close">
+                    <IoClose className='menu-close-icon' onClick={()=>setMenu(false)}/>
+                </div>
+                <div className="options">
+                    <Link className='menu-link' to="/">Inicio</Link>
+                    <Link className='menu-link' to="/">Autenticación</Link>
+                    <Link className='menu-link' to="/">Registrarme</Link>
+                </div>
             </div>
-            <div className="options">
-                <Link className='menu-link' to="/">Inicio</Link>
-                <Link className='menu-link' to="/">Autenticación</Link>
-                <Link className='menu-link' to="/">Registrarme</Link>
+            :null}
+            <div className="header">
+                <button className='menu-btn' onClick={()=>setMenu(true)}>
+                    <IoMenu className='menu-icon' />
+                </button>
+            </div>
+            <div className="main">
+                <h1>
+                    Entra, reserva y birrea
+                </h1>
+            </div>
+            <div className="footer">
+                <button className='btn'>
+                    Reservar
+                </button>
             </div>
         </div>
-        :null}
-        <div className="header">
-            <button className='menu-btn' onClick={()=>setMenu(true)}>
-                <IoMenu className='menu-icon' />
-            </button>
+        <div className="desktop">
+            <h1>Desde tu celular es más cool!</h1>
         </div>
-        <div className="main">
-            <h1>
-                Entra, reserva y birrea
-            </h1>
-        </div>
-        <div className="footer">
-            <button className='btn'>
-                Reservar
-            </button>
-        </div>
-    </div>
+    </>
   )
 }
 
