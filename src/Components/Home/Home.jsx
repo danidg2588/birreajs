@@ -49,7 +49,7 @@ const Home = () => {
                     Reserva tu cancha
                 </span>
                 <IoPersonCircleOutline className='wheader-icons' />
-                <div style={{"--progress":"25%"}} className="stepper-progress"></div>
+                <div style={{"--progress":"30%"}} className="stepper-progress"></div>
             </div>
             <div className="wmain">
                 <div className="stepper">
