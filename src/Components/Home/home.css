@@ -72,10 +72,11 @@
     .main{
         flex: 3;
         margin: 0 1rem;
-        display: flex;
-        align-items: center;
+        display: block;
         user-select: none;
         height: 100%;
+        text-align: start;
+        align-content: center;
 
         h1{
             font-size: 4rem;
