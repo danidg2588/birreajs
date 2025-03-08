@@ -38,6 +38,7 @@
 
         .options{
             display: grid;
+            text-align: center;
 
             .menu-link{
                 font-weight: 800;
@@ -109,11 +110,115 @@
     }
 }
 
+.wizard{
+    animation: ScrollDown 1s;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--darkGreenColor);
+    flex-direction: column;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+
+    .wheader{
+        width: 100%;
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--darkGreenColor);
+        position: relative;
+        
+        .wheader-icons{
+            margin: 0 1rem;
+            font-size: 1.25rem;
+            padding: .5rem;
+        }
+
+        .stepper-progress{
+            position: absolute;
+            width: var(--progress);
+            border-top: 4px solid var(--darkGreenColor);
+            bottom: 0;
+            transform: translateY(50%);
+        }
+    }
+
+    .wmain{
+        flex: 6;
+        margin: 0 1rem;
+        display: block;
+        user-select: none;
+        height: 100%;
+        text-align: start;
+        align-content: center;
+        text-align: center;
+
+        .stepper{
+            font-weight: 100;
+            margin-bottom: 1rem;
+        }
+
+        .title{
+            margin: 0 1rem;
+            color: var(--darkGreenColor);
+            line-height: 1.75rem;
+        }
+
+        .subtitle{
+            margin: 1rem 0 0 0;
+            line-height: 2.5rem;
+        }
+
+        .options{
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            justify-items: center;
+            margin-top: 2rem;
+
+            button.option{
+                height: 5rem;
+                width: 5rem;
+                justify-content: center;
+                align-items: center;
+
+                .option-icon{
+                    color: var(--darkGreenColor);
+                    font-size: 3rem;
+                }
+            }
+        }
+    }
+    
+    .wfooter{
+        display: block;
+        flex: 1;
+
+        button{
+            color: #fff;
+            font-weight: 600;
+            background-color: var(--darkGreenColor);
+            border: none;
+            margin: 1rem 0;
+            padding: 1rem 1.25rem;
+            border-radius: 1rem;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+        }
+        
+    }
+
+}
+
 @keyframes ScrollDown {
     0%{
+        opacity: 0;
         transform: translateY(-90%);
     }
     100%{
+        opacity: 1;
         transform: translateY(0);
     }
 }
