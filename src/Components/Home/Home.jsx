@@ -74,7 +74,7 @@ const Home = () => {
                 </div>
             </div>
             <div className="wfooter">
-                <button onClick={()=>setWizard(0)} className='btn'>
+                <button style={{opacity:0}} onClick={()=>setWizard(2)} className='btn'>
                     Siguiente
                 </button>
             </div>
