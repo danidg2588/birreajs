@@ -7,14 +7,17 @@
     position: relative;
     display: flex;
     max-width: 500px;
+    overflow: hidden;
 
     .main-menu{
         position: absolute;
-        display: flex;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        display: block;
+        align-items: center;
+        justify-content: center;
+        justify-items: center;
+        align-content: center;
+        height: 100vh;
+        width: 100vw;
         background-color: #ffffffdf;
         z-index: 100;
         justify-content: center;
@@ -22,7 +25,6 @@
         animation: ScrollDown 1s;
         border-bottom-left-radius: 2rem;
         border-bottom-right-radius: 2rem;
-
 
         .menu-close-icon{
             position: absolute;
@@ -50,8 +52,8 @@
     }
 
     .header{
-        display: flex;
-        justify-content: end;
+        display: block;
+        text-align: end;
         width: 100%;
 
         .menu-btn{
@@ -73,7 +75,8 @@
         margin: 0 1rem;
         display: flex;
         align-items: center;
-        justify-content: end;
+        user-select: none;
+        height: 100%;
 
         h1{
             font-size: 4rem;
@@ -83,16 +86,12 @@
     }
 
     .footer{
-        background-color: var(--darkGreenColor);
         width: 100%;
         border-top-left-radius: 3rem;
         border-top-right-radius: 3rem;
-        text-align: center;
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
+        display: block;
+        background-color: var(--darkGreenColor);
+        
         button{
             color: #000;
             font-weight: 600;
