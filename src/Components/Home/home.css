@@ -24,13 +24,13 @@
         border-bottom-right-radius: 2rem;
 
         .menu-close-icon{
-            position: absolute;
             top: 1rem;
             left: 1rem;
-            font-size: 1.5rem;
             padding: .75rem;
-            border: 1px solid var(--darkGreenColor);
+            font-size: 1.5rem;
             border-radius: 1rem;
+            position: absolute;
+            border: 1px solid var(--darkGreenColor);
         }
 
         .options{
@@ -38,11 +38,11 @@
             text-align: center;
 
             .menu-link{
-                font-weight: 800;
                 margin: .5rem 0;
-                color: var(--darkGreenColor);
-                text-decoration: none;
+                font-weight: 800;
                 font-size: 1.25rem;
+                text-decoration: none;
+                color: var(--darkGreenColor);
             }
         }
 
@@ -319,3 +319,4 @@
         transform: translateY(0);
     }
 }
+
