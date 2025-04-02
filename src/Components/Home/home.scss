@@ -229,22 +229,23 @@
                 align-items: center;
                 justify-content: center;
                 color: var(--darkGreenColor);
-            }
 
-            button.picker{
-                display: flex;
-                height: 2.5rem;
-                width: 2.5rem;
-                justify-content: center;
-                align-items: center;
-                font-size: 1.125rem;
-                color: var(--darkGreenColor);
-
-                .option-icon{
-                    color: var(--darkGreenColor) !important;
-                    font-size: 3rem;
+                button.picker{
+                    display: flex;
+                    height: 2.5rem;
+                    width: 2.5rem;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 1.125rem;
+                    color: var(--darkGreenColor);
+    
+                    .option-icon{
+                        color: var(--darkGreenColor) !important;
+                        font-size: 3rem;
+                    }
                 }
             }
+
 
         }
     }
