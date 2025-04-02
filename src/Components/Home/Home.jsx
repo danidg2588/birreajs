@@ -199,7 +199,7 @@ const Home = () => {
                             mes
                         </div>
                     </div>
-                    <div className="block">
+                    <div className="picker-container">
                         <div className="picker-control">
                             <button className="picker minus">
                                 <FaMinus onClick={()=>decreaseValue()} />
