@@ -10,7 +10,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom'
 
 
-import './dashboard.css'
+import './dashboard.scss'
 
 export const Dashboard = () => {
     

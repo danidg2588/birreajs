@@ -1,6 +1,6 @@
 import React from 'react'
 import { GiWhistle } from "react-icons/gi";
-import './sportselector.css'
+import './sportselector.scss'
 
 function SportSelector({setSport, setStepper}) {
 

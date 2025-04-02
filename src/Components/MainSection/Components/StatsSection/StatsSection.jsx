@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import "./statsSection.css"
+import "./statsSection.scss"
 
 
 export const StatsSection = () => {

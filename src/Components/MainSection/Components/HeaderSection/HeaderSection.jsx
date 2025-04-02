@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './headerSection.css'
+import './headerSection.scss'
 import { BiSolidSearchAlt2 } from "react-icons/bi";
 
 

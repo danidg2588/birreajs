@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FaFootballBall, FaSearch } from "react-icons/fa";
-import './consultar.css'
+import './consultar.scss'
 
 import axios from 'axios';
 

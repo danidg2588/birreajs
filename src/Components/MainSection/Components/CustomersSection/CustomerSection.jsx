@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ReactApexCharts from 'react-apexcharts'
-import './customerSection.css'
+import './customerSection.scss'
 import { BiCreditCard } from "react-icons/bi";
 
 export const CustomerSection = () => {

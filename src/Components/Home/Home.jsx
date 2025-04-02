@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './home.css'
+import './home.scss'
 
 import { IoMenu, IoClose, IoArrowBack, IoPersonCircleOutline } from "react-icons/io5";
 import { GiSoccerBall, GiTennisRacket, GiVolleyballBall } from "react-icons/gi";

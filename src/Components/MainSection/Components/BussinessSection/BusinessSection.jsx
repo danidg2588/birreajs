@@ -1,5 +1,5 @@
 import React from 'react'
-import './businessSection.css'
+import './businessSection.scss'
 import { BiSolidCalendarEdit } from "react-icons/bi";
 
 export const BusinessSection = () => {

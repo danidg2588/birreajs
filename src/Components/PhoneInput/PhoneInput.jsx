@@ -1,5 +1,5 @@
 import React from 'react'
-import './phoneinput.css'
+import './phoneinput.scss'
 import { FaMobileAlt } from "react-icons/fa";
 
 function PhoneInput({cellphone, setCellphone}) {

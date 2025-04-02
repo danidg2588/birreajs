@@ -1,5 +1,5 @@
 import React from 'react'
-import './accountSection.css'
+import './accountSection.scss'
 import { BiSolidChevronRight } from "react-icons/bi";
 import { BsThreeDots } from "react-icons/bs";
 

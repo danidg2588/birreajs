@@ -1,5 +1,5 @@
 import React from 'react'
-import './main-section.css'
+import './main-section.scss'
 import { CustomerSection } from './Components/CustomersSection/CustomerSection'
 import { HeaderSection } from './Components/HeaderSection/HeaderSection'
 import { StatsSection } from './Components/StatsSection/StatsSection'

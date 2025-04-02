@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import "./home.css"
+import "./home.scss"
 
 import { useState, useEffect } from "react";
 import { IoDocumentText, IoLogInSharp, IoCheckbox } from "react-icons/io5";

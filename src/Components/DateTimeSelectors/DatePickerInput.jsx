@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import DatePicker from 'react-datepicker'
 import { FaCalendar } from "react-icons/fa";
-import "./datepickerinput.css"
+import "./datepickerinput.scss"
 import "./timepicker.css"
 
 export const DatePickerInput = ({date, setDate, setStepper}) => {

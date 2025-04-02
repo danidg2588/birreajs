@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FaVolleyballBall } from "react-icons/fa";
-import './terms.css'
+import './terms.scss'
 import axios from 'axios';
 
 

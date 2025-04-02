@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./authentication.css"
+import "./authentication.scss"
 import { CiBasketball } from "react-icons/ci";
 
 export const Authentication = ({login, isLoading, setLogin, handleSubmitEvent}) => {
