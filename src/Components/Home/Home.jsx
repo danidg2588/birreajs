@@ -201,8 +201,8 @@ const Home = () => {
                     </div>
                     <div className="picker-container">
                         <div className="picker-control">
-                            <button className="picker minus">
-                                <FaMinus onClick={()=>decreaseValue()} />
+                            <button className="picker minus" onClick={()=>decreaseValue()}>
+                                <FaMinus className='icon-picker'  />
                             </button>
                             <button className="selection">
                                 {wizard.date.getMonth() === 0?
@@ -231,8 +231,8 @@ const Home = () => {
                                 'Dic'                                                                                                                                                                                                                                                                                                                                
                                 :null}
                             </button>
-                            <button className="picker plus">
-                                <FaPlus onClick={()=>increaseValue()} />
+                            <button className="picker plus" onClick={()=>increaseValue()}>
+                                <FaPlus className='icon-picker'  />
                             </button>
                         </div>
                     </div>
@@ -252,14 +252,14 @@ const Home = () => {
                     </div>
                     <div className="picker-container">
                         <div className="picker-control">
-                            <button className="picker minus">
-                                <FaMinus onClick={()=>decreaseValue()} />
+                            <button className="picker minus" onClick={()=>decreaseValue()}>
+                                <FaMinus className='icon-picker'  />
                             </button>
                             <button className="selection">
                                 {wizard.date.getDate()}
                             </button>
-                            <button className="picker plus">
-                                <FaPlus onClick={()=>increaseValue()} />
+                            <button className="picker plus" onClick={()=>increaseValue()}>
+                                <FaPlus className='icon-picker' />
                             </button>
                         </div>
                     </div>
@@ -277,16 +277,16 @@ const Home = () => {
                             año
                         </span>
                     </div>
-                    <div className="block">
+                    <div className="picker-container">
                         <div className="picker-control">
-                            <button className="picker minus">
-                                <FaMinus onClick={()=>decreaseValue()} />
+                            <button className="picker minus" onClick={()=>decreaseValue()} >
+                                <FaMinus className='icon-picker' />
                             </button>
                             <button className="selection">
                                 {wizard.date.getFullYear()}
                             </button>
-                            <button className="picker plus">
-                                <FaPlus onClick={()=>increaseValue()} />
+                            <button className="picker plus" onClick={()=>increaseValue()}>
+                                <FaPlus className='icon-picker' />
                             </button>
                         </div>
                     </div>
@@ -308,10 +308,10 @@ const Home = () => {
                             }
                         </div>
                     </div>
-                    <div className="block">
+                    <div className="picker-container">
                         <div className="picker-control">
-                            <button className="picker minus">
-                                <FaMinus onClick={()=>decreaseValue()} />
+                            <button className="picker minus" onClick={()=>decreaseValue()}>
+                                <FaMinus className='icon-picker' />
                             </button>
                             <button onClick={() => setTimeSelector(!timeSelector)} className="selection">
                                 <span className={timeSelector?"active":""}>
@@ -322,8 +322,8 @@ const Home = () => {
                                     {wizard.date.getMinutes() < 10 ? '0' + wizard.date.getMinutes() : wizard.date.getMinutes()}
                                 </span>
                             </button>
-                            <button className="picker plus">
-                                <FaPlus onClick={()=>increaseValue()} />
+                            <button className="picker plus" onClick={()=>increaseValue()}>
+                                <FaPlus className='icon-picker' />
                             </button>
                         </div>
                     </div>
@@ -341,16 +341,16 @@ const Home = () => {
                             Tiempo de alquiler
                         </div>
                     </div>
-                    <div className="block">
+                    <div className="picker-container">
                         <div className="picker-control">
-                            <button className="picker minus">
-                                <FaMinus onClick={()=>decreaseValue()} />
+                            <button className="picker minus" onClick={()=>decreaseValue()}>
+                                <FaMinus className='icon-picker' />
                             </button>
                             <button className="selection">
                                 {wizard.time}
                             </button>
-                            <button className="picker plus">
-                                <FaPlus onClick={()=>increaseValue()} />
+                            <button className="picker plus" onClick={()=>increaseValue()}>
+                                <FaPlus className='icon-picker' />
                             </button>
                         </div>
                     </div>
@@ -368,7 +368,7 @@ const Home = () => {
                             donde?
                         </div>
                     </div>
-                    <div className="block">
+                    <div className="picker-container">
                         <div className="picker-control">
                             <button className="selection court" onClick={()=>setIsOpenCourts(true)}>
                                 {wizard.court?

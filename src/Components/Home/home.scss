@@ -237,8 +237,12 @@
                     width: 2.5rem;
                     justify-content: center;
                     align-items: center;
-                    font-size: 1.25rem;
+                    text-align: center;
                     color: var(--darkGreenColor);
+                    
+                    .icon-picker{
+                        font-size: 2rem;
+                    }
     
                     .option-icon{
                         color: var(--darkGreenColor) !important;
