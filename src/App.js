@@ -1,5 +1,5 @@
 import './App.scss';
-import './Components/Home/home.css';
+import './Components/Home/home.scss';
 
 import { Routes, Route } from 'react-router-dom';
 import { TermsYConds } from './Components/TermsYConds/TermsYConds';

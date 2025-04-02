@@ -152,7 +152,7 @@ const Home = () => {
             <div className="header">
                 <IoArrowBack className='wheader-icons' onClick={() => setWizard({...wizard, step:wizard.step - 1})} />
                 <span className="step">
-                    Reserva tu cancha {wizard.step}
+                    Reserva tu cancha
                 </span>
                 <IoPersonCircleOutline className='wheader-icons' />
                 <div style={{"--progress":"30%"}} className="stepper-progress"></div>
