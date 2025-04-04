@@ -7,7 +7,6 @@
     position: relative;
     display: flex;
     max-width: 500px;
-    overflow: hidden;
 
     .main-menu{
         position: absolute;
@@ -109,7 +108,6 @@
 
 .wizard{
     animation: ScrollDown 1s;
-    display: block;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -117,7 +115,8 @@
     flex-direction: column;
     position: relative;
     display: flex;
-    overflow: hidden;
+    width: 100vw;
+    overflow-x: hidden;
 
     .header{
         width: 100vw;
@@ -159,7 +158,9 @@
     .main{
         flex: 12;
         margin: 0 1rem;
-        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         user-select: none;
         height: 100%;
         text-align: start;
@@ -251,6 +252,47 @@
                     .option-icon{
                         color: var(--darkGreenColor) !important;
                         font-size: 3rem;
+                    }
+                }
+            }
+        }
+
+        .court-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: scroll;
+            max-width: 100vw;
+            padding: 1rem 0;
+
+            .grid-court{
+                display: flex;
+                overflow: scroll;
+                scrollbar-width: none;
+
+                .grid-card{
+                    background-color: var(--yellowColor);
+                    border-radius: .5rem;
+                    aspect-ratio: 1 / 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    height: 25vh;
+                    margin: 1rem;
+                    padding: 1rem;
+                    color: var(--darkGreenColor);
+                    
+
+                    .name{
+                        font-size: 2rem;
+                        font-weight: 600;
+                    }
+
+                    .location{
+                        font-weight: 100;
+                        font-size: 1.25rem;
+                        margin-top: .5rem;
                     }
                 }
             }

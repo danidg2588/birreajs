@@ -369,12 +369,34 @@ const Home = () => {
                             donde?
                         </div>
                     </div>
-                    <div className="picker-container">
-                        <div className="picker-control">
-                            <button className="selection court" onClick={()=>setIsOpenCourts(true)}>
-                                {wizard.court?
-                                "hello"
-                                :"Seleccione"}
+                    <div className="court-container">
+                        <div className="grid-court">
+                            
+                            <button className="grid-card">
+                                <div className="name">
+                                    Cancha Sintética1 2000
+                                </div>
+                                <div className="location">
+                                    San Francisco
+                                </div>
+                            </button>
+                            
+                            <button className="grid-card">
+                                <div className="name">
+                                    Cancha Sintética1 2000
+                                </div>
+                                <div className="location">
+                                    San Francisco
+                                </div>
+                            </button>
+
+                            <button className="grid-card">
+                                <div className="name">
+                                    Cancha Sintética1 2000
+                                </div>
+                                <div className="location">
+                                    San Francisco
+                                </div>
                             </button>
                         </div>
                     </div>
