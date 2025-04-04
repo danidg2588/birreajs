@@ -1,10 +1,17 @@
 import React from 'react'
 import './controlpanel.scss'
 
-import { GiSoccerBall } from "react-icons/gi";
-import { FaUser, FaBookmark, FaVolleyballBall, FaBell } from "react-icons/fa";
+import { FaUser, FaBookmark, FaVolleyballBall, FaBell, FaSignOutAlt } from "react-icons/fa";
+import { useNavigate } from 'react-router';
 
 const ControlPanel = () => {
+  let navigate = useNavigate();
+
+  function handleLogOut(){
+    localStorage.removeItem('birrea.app')
+    navigate("/")
+  }
+
   return (
     <div className="control-panel">
       <div className="header">
@@ -14,6 +21,7 @@ const ControlPanel = () => {
           </div>
           <div className="notifications">
             <FaBell className='notification-icon' />
+            <FaSignOutAlt onClick={() => handleLogOut()} className='notification-icon' />
           </div>
       </div>
       <div className="content">
