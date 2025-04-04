@@ -1,4 +1,4 @@
-.mobile{
+.birrea{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -297,6 +297,71 @@
                 }
             }
         }
+
+        .title{
+            font-size: 3em;
+            line-height: 2.5rem;
+        }
+
+        .review{
+            flex: 1;
+            color: #fff;
+            position:fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            animation: ScrollUp 1s ease-in-out;
+
+            .title{
+                margin: 0 1rem 3rem;
+                color: var(--darkGreenColor);
+                font-weight: 600;
+                font-size: 4rem;
+                text-transform: lowercase;
+            }
+
+            .container{
+                display: grid;
+                grid-template-columns: repeat(1,1fr);
+                padding: 2rem 0;
+                background-color: var(--darkGreenColor);
+                border-top-left-radius: 3rem;
+                border-top-right-radius: 3rem;
+    
+                .data-container{
+                    display: flex;
+                    flex-direction: column;
+                    aspect-ratio: 5 / 1;
+                    padding: 1rem;
+                    margin: 0 .5rem;
+                    justify-content: center;
+                    align-items: center;
+        
+                    .review-title{
+                        font-size: 1rem;
+                        font-weight: 100;
+                    }
+            
+                    .review-data{
+                        font-size: 2rem;
+                        font-weight: 800;
+                    }
+
+                    button{
+                        // padding: 1rem;
+                        font-size: 2rem;
+                        // color: var(--darkGreenColor);
+                        color: var(--darkGreenColor);
+                        background-color: #fff;
+                        border: none;
+                        padding: 1.25rem;
+                        border-radius: .75rem;
+                        box-shadow: 0 5px 15px var(--yellowColor);
+
+                    }
+                }
+            }
+        }
     }
 
     .footer{
@@ -374,3 +439,13 @@
     }
 }
 
+@keyframes ScrollUp {
+    0%{
+        opacity: 0;
+        bottom: -100%;
+    }
+    100%{
+        opacity: 1;
+        bottom: 0;
+    }    
+}

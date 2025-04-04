@@ -3,10 +3,9 @@ import axios from "axios"
 import React, { useEffect, useState } from 'react'
 import Authentication from "./Authentication/Authentication"
 
-const ProtectedRoutes = () => {
+const ProtectedRoutes = ({isLoading, setIsLoading}) => {
 
   const [token,setToken] = useState()
-  const [isLoading, setIsLoading] = useState(false)
   const [login, setLogin] = useState({
     username: null,
     password: null,
