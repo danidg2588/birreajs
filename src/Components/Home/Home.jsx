@@ -125,9 +125,8 @@ const Home = () => {
                 </div>
                 <div className="options">
                     <Link className='menu-link' to="/">Inicio</Link>
-                    <Link className='menu-link' to="/">Autenticación</Link>
-                    <Link className='menu-link' to="/">Registrarme</Link>
-                    <Link className='menu-link' to="/">FAQs</Link>
+                    <Link className='menu-link' to="/board" >Autenticación</Link>
+                    <Link className='menu-link' to="/faqs">FAQs</Link>
                 </div>
             </div>
             :null}
@@ -151,11 +150,13 @@ const Home = () => {
         <div className="wizard">
             <div className="header">
                 <IoArrowBack className='wheader-icons' onClick={() => setWizard({...wizard, step:wizard.step - 1})} />
-                <span className="step">
+                <span className="step-text">
                     Reserva tu cancha
                 </span>
-                <IoPersonCircleOutline className='wheader-icons' />
-                <div style={{"--progress":"30%"}} className="stepper-progress"></div>
+                <Link className='link' to='/board'>
+                    <IoPersonCircleOutline className='wheader-icons' />
+                </Link>
+                <div style={{"--progress":wizard.step + '0%'}} className="stepper-progress"></div>
             </div>
             <div className="main">
                 {wizard.step === 1?
@@ -273,9 +274,9 @@ const Home = () => {
                         <h1 className='title'>
                             Seleccione una fecha
                         </h1>
-                        <span className="subtitle">
+                        <div className="subtitle">
                             año
-                        </span>
+                        </div>
                     </div>
                     <div className="picker-container">
                         <div className="picker-control">
