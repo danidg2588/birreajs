@@ -4,6 +4,7 @@
     justify-content: center;
     flex-direction: column;
     min-height: 100vh;
+    max-width: 525px;
 
     .auth-header{
         flex: 1;
@@ -19,7 +20,7 @@
 
             .link-icon{
                 margin: 0 1rem;
-                padding: 1rem;
+                padding: .5rem;
                 border-radius: .5rem;
                 height: 2rem;
                 width: 2rem;
