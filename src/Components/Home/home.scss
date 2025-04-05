@@ -183,6 +183,12 @@
                 margin: 1rem 0 0 0;
                 line-height: 2.5rem;
             }
+
+            .confirmation{
+                font-weight: 900;
+                text-transform: uppercase;
+                font-size: 3rem;
+            }
         }
 
         .grid{
@@ -310,7 +316,6 @@
             left: 0;
             right: 0;
             bottom: 0;
-            animation: ScrollUp 1s ease-in-out;
 
             .title{
                 margin: 0 1rem 3rem;
@@ -318,6 +323,10 @@
                 font-weight: 600;
                 font-size: 4rem;
                 text-transform: lowercase;
+            }
+
+            .slide-up{
+                animation: ScrollUp 1s ease-in-out !important;
             }
 
             .container{
@@ -442,10 +451,10 @@
 @keyframes ScrollUp {
     0%{
         opacity: 0;
-        bottom: -100%;
+        transform: translateY(100%);
     }
     100%{
         opacity: 1;
-        bottom: 0;
+        transform: translateY(0);
     }    
 }

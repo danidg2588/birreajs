@@ -18,6 +18,7 @@ const Home = ({isLoading, setIsLoading}) => {
         time:1,
         phone:null,
         court:null,
+        confirmacion:null,
     })
 
     function decreaseValue(){
@@ -132,7 +133,7 @@ const Home = ({isLoading, setIsLoading}) => {
                     <div className="options">
                         <Link className='menu-link' to="/">Inicio</Link>
                         <Link className='menu-link' to="/board" >Iniciar Sesión</Link>
-                        <Link className='menu-link' to="/faqs">FAQs</Link>
+                        <Link className='menu-link' to="/faqs">FAQ's</Link>
                     </div>
                 </div>
                 :null}
@@ -415,14 +416,14 @@ const Home = ({isLoading, setIsLoading}) => {
                     :wizard.step === 8 || wizard.step === 9?
                     <div className="wizard-step">
                         <div className="review">
-                            <div className="title">
+                            <div className={wizard.confirmacion?'confirmation':'title'} >
                                 {wizard.step === 8?
                                     'Confirmar reserva'
-                                :wizard.step === 9?
-                                    'Confirmado'
+                                :wizard.step === 9 && wizard.confirmacion?
+                                    wizard.confirmacion
                                 :null}
                             </div>
-                            <div className="container">
+                            <div className="container slide-up">
                                 <div className='data-container'>
                                     <span className="review-title">
                                         Deporte:
