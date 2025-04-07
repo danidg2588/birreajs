@@ -102,6 +102,7 @@
             border-radius: 1rem;
             font-size: 1.25rem;
             text-transform: uppercase;
+            cursor: pointer;
         }
     }
 }
@@ -216,6 +217,7 @@
                 align-items: center;
                 font-size: 1.125rem;
                 color: var(--darkGreenColor);
+                cursor: pointer;
 
                 .option-icon{
                     color: var(--darkGreenColor) !important;
@@ -264,6 +266,7 @@
                     align-items: center;
                     text-align: center;
                     color: var(--darkGreenColor);
+                    cursor: pointer;
                     
                     .icon-picker{
                         font-size: 1.5rem;
@@ -401,6 +404,7 @@
             border-radius: 1rem;
             font-size: 1.25rem;
             text-transform: uppercase;
+            cursor: pointer;
         }
     }
 
