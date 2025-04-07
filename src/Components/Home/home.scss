@@ -118,6 +118,16 @@
     width: 100vw;
     overflow-x: hidden;
 
+    .confirmation-text{
+        font-size: 1.5rem;
+        font-weight: 100;
+    }
+
+    .confirmation{
+        font-size: 4rem;
+        font-weight: 900;
+    }
+
     .header{
         width: 100vw;
         height: 10vh;
@@ -256,7 +266,7 @@
                     color: var(--darkGreenColor);
                     
                     .icon-picker{
-                        font-size: 2rem;
+                        font-size: 1.5rem;
                     }
     
                     .option-icon{
@@ -320,13 +330,21 @@
             left: 0;
             right: 0;
             bottom: 0;
+            align-items: center;
+            justify-items: center;
 
-            .title{
-                margin: 0 1rem 3rem;
-                color: var(--darkGreenColor);
+            button{
+                margin-bottom: 2rem;
+                font-size: 1.5rem;
+                background-color: var(--darkGreenColor);
+                color: #fff;
+                border: none;
+                padding: 1.5rem;
+                border-radius: .75rem;
+                cursor: pointer;
                 font-weight: 600;
-                font-size: 4rem;
-                text-transform: lowercase;
+                text-transform: uppercase;
+                box-shadow: 0 5px 15px var(--darkGreenColor);
             }
 
             .slide-up{
@@ -334,8 +352,6 @@
             }
 
             .container{
-                display: grid;
-                grid-template-columns: repeat(1,1fr);
                 padding: 2rem 0;
                 background-color: var(--darkGreenColor);
                 border-top-left-radius: 3rem;
@@ -358,19 +374,6 @@
                     .review-data{
                         font-size: 2rem;
                         font-weight: 800;
-                    }
-
-                    button{
-                        // padding: 1rem;
-                        font-size: 2rem;
-                        // color: var(--darkGreenColor);
-                        color: var(--darkGreenColor);
-                        background-color: #fff;
-                        border: none;
-                        padding: 1.25rem;
-                        border-radius: .75rem;
-                        box-shadow: 0 5px 15px var(--yellowColor);
-
                     }
                 }
             }
@@ -470,4 +473,23 @@
     100%{
         opacity: 1;
     }  
+}
+
+
+
+@media screen and (min-width:550) {
+    .review{
+        .container{
+            display: flex;
+        }
+    }
+}
+
+@media screen and (max-width:550) {
+    .review{
+        .container{
+            display: block;
+            grid-template-columns: repeat(1,1fr);
+        }
+    }
 }

@@ -79,6 +79,15 @@
             .answer{
                 display: block;
                 text-align: justify;
+                transition: 2s ease-in-out !important;
+            }
+
+            .extended{
+                display: block;
+            }
+
+            .collapsed{
+                display: none;
             }
         }
     }

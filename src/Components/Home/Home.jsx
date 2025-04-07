@@ -18,7 +18,7 @@ const Home = ({isLoading, setIsLoading}) => {
         time:1,
         phone:null,
         court:null,
-        confirmacion:null,
+        confirmation:null,
     })
 
     function decreaseValue(){
@@ -120,6 +120,16 @@ const Home = ({isLoading, setIsLoading}) => {
             step: wizard.step + 1
         })
     }
+
+    function submitBookingRequest(){
+        alert('submitting booking request')
+        setWizard({
+            ...wizard,
+                step: wizard.step + 1,
+                confirmation:'F7ADSF8A'
+            }
+        )
+    }
     
   return (
     <>
@@ -163,7 +173,7 @@ const Home = ({isLoading, setIsLoading}) => {
                 <div className="header">
                     <IoArrowBack className='wheader-icons' onClick={() => setWizard({...wizard, step:wizard.step - 1})} />
                     <span className="step-text">
-                        Reserva tu cancha
+                        Reserva tu cancha {wizard.step}
                     </span>
                     <Link className='link' to='/board'>
                         <IoPersonCircleOutline className='wheader-icons' />
@@ -413,15 +423,13 @@ const Home = ({isLoading, setIsLoading}) => {
                             </div>
                         </div>
                     </div>
-                    :wizard.step === 8 || wizard.step === 9?
+                    :wizard.step === 8?
                     <div className="wizard-step">
                         <div className="review">
-                            <div className={wizard.confirmacion?'confirmation':'title'} >
-                                {wizard.step === 8?
-                                    'Confirmar reserva'
-                                :wizard.step === 9 && wizard.confirmacion?
-                                    wizard.confirmacion
-                                :null}
+                            <div className="confirmation">
+                                <button onClick={() => submitBookingRequest()}>
+                                    Confirmar
+                                </button>
                             </div>
                             <div className="container slide-up">
                                 <div className='data-container'>
@@ -448,16 +456,16 @@ const Home = ({isLoading, setIsLoading}) => {
                                         18:30 - 20:30 
                                     </span>
                                 </div>
-                                <div className='data-container'>
-                                    <button onClick={() => setWizard({...wizard,step:wizard.step + 1})}>
-                                        {wizard.step === 8?
-                                            'Confirmar'
-                                        :wizard.step === 9?
-                                            'Terminar'
-                                        :null}
-                                    </button>
-                                </div>
                             </div>
+                        </div>
+                    </div>
+                    :wizard.step === 9?
+                    <div className="wizard-step">
+                        <div className="confirmation-text">
+                            Tu confirmarción:
+                        </div>
+                        <div className="confirmation">
+                            {wizard.confirmation}
                         </div>
                     </div>
                     :null
@@ -468,6 +476,12 @@ const Home = ({isLoading, setIsLoading}) => {
                 <div className="footer">
                     <button onClick={()=>setWizard({...wizard,step:wizard.step+1})} className='btn'>
                         siguiente
+                    </button>
+                </div>
+                :wizard.step === 9?
+                <div className="footer">
+                    <button onClick={()=>setWizard({step:0,date:new Date(new Date().setMinutes(0)),})} className='btn'>
+                        Finalizar
                     </button>
                 </div>
                 :null}
