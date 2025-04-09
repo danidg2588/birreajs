@@ -46,8 +46,6 @@ const Authentication = ({login, isLoading, setLogin, handleSubmitEvent}) => {
                         type="email"
                         id="email"
                         placeholder='usuario@email.com'
-                        aria-describedby="user-email"
-                        aria-invalid="false"
                         onChange={(val) => handleUsername(val.target.value)}
                         autoCapitalize='none'
                         autoFocus={true}
@@ -61,8 +59,6 @@ const Authentication = ({login, isLoading, setLogin, handleSubmitEvent}) => {
                         id="password"
                         name="password"
                         placeholder='contraseña'
-                        aria-describedby="user-password"
-                        aria-invalid="false"
                         onChange={(val)=> handlePassword(val.target.value)}
                         className='control-input'
                     />

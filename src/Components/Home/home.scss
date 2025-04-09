@@ -30,6 +30,7 @@
             border-radius: 1rem;
             position: absolute;
             border: 1px solid var(--darkGreenColor);
+            cursor: pointer;
         }
 
         .options{
@@ -63,6 +64,7 @@
             .menu-icon{
                 font-size: 2.5rem;
                 color: #fff;
+                cursor: pointer;
             }
         }
     }
@@ -208,14 +210,16 @@
             justify-items: center;
             margin-top: 2rem;
             gap: 5px;
+            align-items: center;
 
             button.option{
                 display: flex;
-                height: 4rem;
-                width: 4rem;
+                height: 5rem;
+                width: 5rem;
+                aspect-ratio: 1 / 1;
                 justify-content: center;
                 align-items: center;
-                font-size: 1.125rem;
+                font-size: 1.25rem;
                 color: var(--darkGreenColor);
                 cursor: pointer;
 
@@ -231,17 +235,27 @@
             justify-items: center;
             
             .selection{
-                width: 125px;
                 border: none;
-                height: 2.75rem;
                 font-size: 2rem;
                 font-weight: 600;
                 color: var(--darkGreenColor);
                 background: transparent;
 
+                span{
+                    padding: 0 1rem;
+                }
+
+                input{
+                    border: 2px solid red;
+                }
+
                 .active{
                     animation: Blinking .75s linear infinite;
                 }
+            }
+
+            .phonenumber{
+                text-align: center;
             }
 
             .court{
@@ -252,11 +266,17 @@
             .picker-control{
                 display: flex;
                 align-items: center;
-                justify-content: center;
+                justify-content: space-between;
                 color: var(--darkGreenColor);
                 background-color: lightgray;
                 padding: 1rem;
                 border-radius: .5rem;
+                width: 300px;
+
+                input{
+                    outline: none;
+                    width: 100%;
+                }
 
                 button.picker{
                     display: flex;
@@ -305,7 +325,7 @@
                     margin: 1rem;
                     padding: 1rem;
                     color: var(--darkGreenColor);
-                    
+                    cursor: pointer;
 
                     .name{
                         font-size: 2rem;

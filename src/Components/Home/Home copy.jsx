@@ -121,30 +121,6 @@ const Home = ({isLoading, setIsLoading}) => {
         })
     }
 
-    function handlePhoneNumber(text){
-    
-        if (String(text).length === 1){
-          setWizard({
-            ...wizard,
-            phone:6
-          })
-        }
-        else if (String(text).length === 8 && Number(text)) {
-          let phone = text.replace("-",'')
-          setWizard({
-            ...wizard,
-            phone:String(text).slice(0,4)+"-"+String(text).slice(4,10)
-          })
-        } 
-        else {
-          let phonenumber = text.replace(/[^0-9]/g,'')
-          setWizard({
-            ...wizard,
-            phone:phonenumber
-          })
-        }
-      }
-
     function submitBookingRequest(){
         alert('submitting booking request')
         setWizard({
@@ -154,7 +130,6 @@ const Home = ({isLoading, setIsLoading}) => {
             }
         )
     }
-
     
   return (
     <>
@@ -258,6 +233,9 @@ const Home = ({isLoading, setIsLoading}) => {
                             <h1 className='title'>
                                 Seleccione una fecha
                             </h1>
+                            <div className="subtitle">
+                                mes
+                            </div>
                         </div>
                         <div className="picker-container">
                             <div className="picker-control">
@@ -265,37 +243,31 @@ const Home = ({isLoading, setIsLoading}) => {
                                     <FaMinus className='icon-picker'  />
                                 </button>
                                 <button className="selection">
-                                    <span>
-                                        {wizard.date.getDate()}
-                                        -
-                                        {wizard.date.getMonth() === 0?
-                                        'Ene'
-                                        :wizard.date.getMonth() === 1?
-                                        'Feb'
-                                        :wizard.date.getMonth() === 2?
-                                        'Mar'
-                                        :wizard.date.getMonth() === 3?
-                                        'Abr'
-                                        :wizard.date.getMonth() === 4?
-                                        'May'
-                                        :wizard.date.getMonth() === 5?
-                                        'Jun'
-                                        :wizard.date.getMonth() === 6?
-                                        'Jul'
-                                        :wizard.date.getMonth() === 7?
-                                        'Ago'
-                                        :wizard.date.getMonth() === 8?
-                                        'Sep'
-                                        :wizard.date.getMonth() === 9?
-                                        'Oct'
-                                        :wizard.date.getMonth() === 19?
-                                        'Nov'
-                                        :wizard.date.getMonth() === 11?
-                                        'Dic'                                                                                                                                                                                                                                                                                                                                
-                                        :null}
-                                        -
-                                        {wizard.date.getFullYear()}
-                                    </span>
+                                    {wizard.date.getMonth() === 0?
+                                    'Ene'
+                                    :wizard.date.getMonth() === 1?
+                                    'Feb'
+                                    :wizard.date.getMonth() === 2?
+                                    'Mar'
+                                    :wizard.date.getMonth() === 3?
+                                    'Abr'
+                                    :wizard.date.getMonth() === 4?
+                                    'May'
+                                    :wizard.date.getMonth() === 5?
+                                    'Jun'
+                                    :wizard.date.getMonth() === 6?
+                                    'Jul'
+                                    :wizard.date.getMonth() === 7?
+                                    'Ago'
+                                    :wizard.date.getMonth() === 8?
+                                    'Sep'
+                                    :wizard.date.getMonth() === 9?
+                                    'Oct'
+                                    :wizard.date.getMonth() === 19?
+                                    'Nov'
+                                    :wizard.date.getMonth() === 11?
+                                    'Dic'                                                                                                                                                                                                                                                                                                                                
+                                    :null}
                                 </button>
                                 <button className="picker plus" onClick={()=>increaseValue()}>
                                     <FaPlus className='icon-picker'  />
@@ -310,8 +282,69 @@ const Home = ({isLoading, setIsLoading}) => {
                                 Paso 3
                             </div>
                             <h1 className='title'>
+                                Seleccione una fecha
+                            </h1>
+                            <div className="subtitle">
+                                día
+                            </div>
+                        </div>
+                        <div className="picker-container">
+                            <div className="picker-control">
+                                <button className="picker minus" onClick={()=>decreaseValue()}>
+                                    <FaMinus className='icon-picker'  />
+                                </button>
+                                <button className="selection">
+                                    {wizard.date.getDate()}
+                                </button>
+                                <button className="picker plus" onClick={()=>increaseValue()}>
+                                    <FaPlus className='icon-picker' />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    :wizard.step === 4?
+                    <div className="wizard-step">
+                        <div className="heading-text">
+                            <div className="stepper">
+                                Paso 4
+                            </div>
+                            <h1 className='title'>
+                                Seleccione una fecha
+                            </h1>
+                            <div className="subtitle">
+                                año
+                            </div>
+                        </div>
+                        <div className="picker-container">
+                            <div className="picker-control">
+                                <button className="picker minus" onClick={()=>decreaseValue()} >
+                                    <FaMinus className='icon-picker' />
+                                </button>
+                                <button className="selection">
+                                    {wizard.date.getFullYear()}
+                                </button>
+                                <button className="picker plus" onClick={()=>increaseValue()}>
+                                    <FaPlus className='icon-picker' />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    :wizard.step === 5?
+                    <div className="wizard-step">
+                        <div className="heading-text">
+                            <div className="stepper">
+                                Paso 5
+                            </div>
+                            <h1 className='title'>
                                 Selecciona una hora
                             </h1>
+                            <div className="subtitle">
+                                {timeSelector?
+                                "hora"
+                                :
+                                "minutos"
+                                }
+                            </div>
                         </div>
                         <div className="picker-container">
                             <div className="picker-control">
@@ -333,39 +366,45 @@ const Home = ({isLoading, setIsLoading}) => {
                             </div>
                         </div>
                     </div>
-                    :wizard.step === 4?
+                    :wizard.step === 6?
                     <div className="wizard-step">
                         <div className="heading-text">
                             <div className="stepper">
-                                Paso 4
+                                Paso 6
                             </div>
                             <h1 className='title'>
                                 ¿Seleccione cuántas horas?
                             </h1>
+                            <div className="subtitle">
+                                Tiempo de alquiler
+                            </div>
                         </div>
                         <div className="picker-container">
                             <div className="picker-control">
                                 <button className="picker minus" onClick={()=>decreaseValue()}>
                                     <FaMinus className='icon-picker' />
                                 </button>
-                                <span className="selection">
+                                <button className="selection">
                                     {wizard.time}
-                                </span>
+                                </button>
                                 <button className="picker plus" onClick={()=>increaseValue()}>
                                     <FaPlus className='icon-picker' />
                                 </button>
                             </div>
                         </div>
                     </div>
-                    :wizard.step === 5?
+                    :wizard.step === 7?
                     <div className="wizard-step">
                         <div className="heading-text">
                             <div className="stepper">
-                                Paso 5
+                                Paso 7
                             </div>
                             <h1 className='title'>
                                 Selecciona una cancha
                             </h1>
+                            <div className="subtitle">
+                                donde?
+                            </div>
                         </div>
                         <div className="court-container">
                             <div className="grid-court">
@@ -399,32 +438,7 @@ const Home = ({isLoading, setIsLoading}) => {
                             </div>
                         </div>
                     </div>
-                    :wizard.step === 6?
-                    <div className="wizard-step">
-                        <div className="heading-text">
-                            <div className="stepper">
-                                Paso 6
-                            </div>
-                            <h1 className='title'>
-                                Introduzca su celular
-                            </h1>
-                        </div>
-                        <div className="picker-container">
-                            <div className="picker-control">
-                                <input type="tel" 
-                                    autoFocus="true"
-                                    className="selection phonenumber"
-                                    onChange={(e) => handlePhoneNumber(e.target.value)}
-                                    maxLength={9}
-                                    placeholder="6000-1234"
-                                    value={wizard.phone}
-                                    inputMode='numeric'
-                                    pattern="[0-9]*" 
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    :wizard.step === 7?
+                    :wizard.step === 8?
                     <div className="wizard-step">
                         <div className="review">
                             <div className="confirmation">
