@@ -1,0 +1,56 @@
+.date-picker{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100vw;
+    overflow: auto;
+    scrollbar-width: none;
+
+    .date-card{
+        border-radius: .5rem;
+        aspect-ratio: 1 / 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 7rem;
+        margin: 1rem;
+        padding: 2rem;
+        color: var(--darkGreenColor);
+        border: 5px solid var(--yellowColor);
+        cursor: pointer;
+        user-select: none;
+        transition: .2s;
+
+        .month{
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .date{
+            font-size: 4rem;
+            line-height: 3.5rem;
+            font-weight: 700;
+            margin: .25rem 0;
+        }
+
+        .weekday{
+            margin: 0;
+            padding: 0;
+            font-weight: 200;
+        }
+
+        &:hover{
+            background-color: var(--yellowColor);
+            color: var(--darkGreenColor);
+            border: 5px solid var(--darkGreenColor);
+        }
+
+    }
+
+    .active{
+        background-color: var(--yellowColor);
+        color: var(--darkGreenColor);
+        border: 5px solid var(--darkGreenColor);
+    }
+}

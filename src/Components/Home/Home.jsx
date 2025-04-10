@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './home.scss'
 
 import { IoMenu, IoClose, IoArrowBack, IoPersonCircleOutline } from "react-icons/io5";
@@ -6,6 +6,9 @@ import { GiSoccerBall, GiTennisRacket, GiTennisBall, GiVolleyballBall, GiAmerica
 
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { Link } from 'react-router-dom'
+import DatePicker from '../DatePicker/DatePicker';
+import TimePicker from '../TimePicker/TimePicker';
+
 
 const Home = ({isLoading, setIsLoading}) => {
     const [menu,setMenu] = useState(false)
@@ -14,34 +17,22 @@ const Home = ({isLoading, setIsLoading}) => {
     const [wizard,setWizard] = useState({
         step:0,
         sport:null,
-        date:new Date(new Date().setMinutes(0)),
+        // date:null,
+        date:new Date(new Date(new Date(new Date(new Date().setMinutes((15 * Math.ceil(new Date().getMinutes() / 15) % 60))).setSeconds(0))).setHours(new Date(new Date(new Date().setMinutes((15 * Math.ceil(new Date().getMinutes() / 15) % 60))).setSeconds(0)).getHours() + 1)),
         time:1,
         phone:null,
         court:null,
         confirmation:null,
     })
 
+    useEffect(() => {
+        console.log(wizard.date,'date just changed')
+    },[wizard.date])
+
     function decreaseValue(){
         let prev = new Date(wizard.date)
-        if (wizard.step === 2)
-        {
-            setWizard({
-                ...wizard,
-                date:new Date(prev.setMonth(prev.getMonth() - 1))
-            })
-        } else if (wizard.step === 3)
-        {
-            setWizard({
-                ...wizard,
-                date:new Date(prev.setDate(prev.getDate() - 1))
-            })
-        } else if (wizard.step === 4)
-        {
-            setWizard({
-                ...wizard,
-                date:new Date(prev.setFullYear(prev.getFullYear() - 1))
-            })
-        } else if (wizard.step === 5)
+        console.log(wizard.date === new Date(new Date(new Date().setMinutes((15 * Math.ceil(new Date().getMinutes() / 15) % 60))).setSeconds(0)))
+        if (wizard.step === 3 && wizard.date > new Date(new Date(new Date(new Date(new Date().setMinutes((15 * Math.ceil(new Date().getMinutes() / 15) % 60))).setSeconds(0))).setHours(new Date(new Date(new Date().setMinutes((15 * Math.ceil(new Date().getMinutes() / 15) % 60))).setSeconds(0)).getHours() + 2)))
         {
             if (timeSelector)
             {
@@ -55,7 +46,7 @@ const Home = ({isLoading, setIsLoading}) => {
                     date:new Date(prev.setMinutes(prev.getMinutes() - 15))
                 })                
             }
-        } else if (wizard.step === 6)
+        } else if (wizard.step === 4)
         {
             if (wizard.time > 1 && wizard.time <= 4)
             {
@@ -64,30 +55,12 @@ const Home = ({isLoading, setIsLoading}) => {
                     time:wizard.time - 1
                 })
             }
-        } 
+        }
     }
 
     function increaseValue(){
         let next = new Date(wizard.date)
-        if (wizard.step === 2)
-        {
-            setWizard({
-                ...wizard,
-                date:new Date(next.setMonth(next.getMonth() + 1))
-            })
-        } else if (wizard.step === 3)
-        {
-            setWizard({
-                ...wizard,
-                date:new Date(next.setDate(next.getDate() + 1))
-            })
-        } else if (wizard.step === 4)
-        {
-            setWizard({
-                ...wizard,
-                date:new Date(next.setFullYear(next.getFullYear() + 1))
-            })
-        } else if (wizard.step === 5)
+        if (wizard.step === 3)
         {
             if (timeSelector)
             {
@@ -101,7 +74,7 @@ const Home = ({isLoading, setIsLoading}) => {
                     date:new Date(next.setMinutes(next.getMinutes() + 15))
                 })                
             }
-        } else if (wizard.step === 6)
+        } else if (wizard.step === 4)
         {
             if (wizard.time >= 1 && wizard.time < 4)
             {
@@ -203,7 +176,7 @@ const Home = ({isLoading, setIsLoading}) => {
                     <Link className='link' to='/board'>
                         <IoPersonCircleOutline className='wheader-icons' />
                     </Link>
-                    <div style={{"--progress":wizard.step / 9 * 100 + '%'}} className="stepper-progress"></div>
+                    <div style={{"--progress":wizard.step / 8 * 100 + '%'}} className="stepper-progress"></div>
                 </div>
                 <div className="main">
                     {wizard.step === 1?
@@ -219,32 +192,32 @@ const Home = ({isLoading, setIsLoading}) => {
                         <div className="grid">
                             <button
                             onClick={() => setWizard({...wizard,step:2,sport:'futbol',})}
-                            className="option">
+                            className="option active">
                                 <GiSoccerBall className='option-icon' />
                             </button>
                             <button 
                             onClick={() => setWizard({...wizard,step:2,sport:'tenis',})}
-                            className="option">
+                            className="option inactive">
                                 <GiTennisBall className='option-icon' />
                             </button>
                             <button 
                             onClick={() => setWizard({...wizard,step:2,sport:'voleibol',})}
-                            className="option">
-                                <GiVolleyballBall className='option-icon' />
+                            className="option inacive">
+                                <GiVolleyballBall className='option-icon inactive' />
                             </button>
                             <button
                             onClick={() => setWizard({...wizard,step:2,sport:'futbol',})}
-                            className="option">
+                            className="option inactive">
                                 <GiAmericanFootballBall className='option-icon' />
                             </button>
                             <button 
                             onClick={() => setWizard({...wizard,step:2,sport:'tenis',})}
-                            className="option">
+                            className="option inactive">
                                 <GiBasketballBall className='option-icon' />
                             </button>
                             <button 
                             onClick={() => setWizard({...wizard,step:2,sport:'voleibol',})}
-                            className="option">
+                            className="option inactive">
                                 <GiBaseballGlove className='option-icon' />
                             </button>
                         </div>
@@ -260,47 +233,7 @@ const Home = ({isLoading, setIsLoading}) => {
                             </h1>
                         </div>
                         <div className="picker-container">
-                            <div className="picker-control">
-                                <button className="picker minus" onClick={()=>decreaseValue()}>
-                                    <FaMinus className='icon-picker'  />
-                                </button>
-                                <button className="selection">
-                                    <span>
-                                        {wizard.date.getDate()}
-                                        -
-                                        {wizard.date.getMonth() === 0?
-                                        'Ene'
-                                        :wizard.date.getMonth() === 1?
-                                        'Feb'
-                                        :wizard.date.getMonth() === 2?
-                                        'Mar'
-                                        :wizard.date.getMonth() === 3?
-                                        'Abr'
-                                        :wizard.date.getMonth() === 4?
-                                        'May'
-                                        :wizard.date.getMonth() === 5?
-                                        'Jun'
-                                        :wizard.date.getMonth() === 6?
-                                        'Jul'
-                                        :wizard.date.getMonth() === 7?
-                                        'Ago'
-                                        :wizard.date.getMonth() === 8?
-                                        'Sep'
-                                        :wizard.date.getMonth() === 9?
-                                        'Oct'
-                                        :wizard.date.getMonth() === 19?
-                                        'Nov'
-                                        :wizard.date.getMonth() === 11?
-                                        'Dic'                                                                                                                                                                                                                                                                                                                                
-                                        :null}
-                                        -
-                                        {wizard.date.getFullYear()}
-                                    </span>
-                                </button>
-                                <button className="picker plus" onClick={()=>increaseValue()}>
-                                    <FaPlus className='icon-picker'  />
-                                </button>
-                            </div>
+                            <DatePicker wizard={wizard} setWizard={setWizard} />    
                         </div>
                     </div>
                     :wizard.step === 3?
@@ -313,25 +246,7 @@ const Home = ({isLoading, setIsLoading}) => {
                                 Selecciona una hora
                             </h1>
                         </div>
-                        <div className="picker-container">
-                            <div className="picker-control">
-                                <button className="picker minus" onClick={()=>decreaseValue()}>
-                                    <FaMinus className='icon-picker' />
-                                </button>
-                                <button onClick={() => setTimeSelector(!timeSelector)} className="selection">
-                                    <span className={timeSelector?"active":""}>
-                                        {wizard.date.getHours()}
-                                    </span>
-                                    :
-                                    <span className={!timeSelector?"active":""}>
-                                        {wizard.date.getMinutes() < 10 ? '0' + wizard.date.getMinutes() : wizard.date.getMinutes()}
-                                    </span>
-                                </button>
-                                <button className="picker plus" onClick={()=>increaseValue()}>
-                                    <FaPlus className='icon-picker' />
-                                </button>
-                            </div>
-                        </div>
+                        <TimePicker decreaseValue={decreaseValue} increaseValue={increaseValue} wizard={wizard} setWizard={setWizard} timeSelector={timeSelector} setTimeSelector={setTimeSelector} />
                     </div>
                     :wizard.step === 4?
                     <div className="wizard-step">
@@ -412,7 +327,7 @@ const Home = ({isLoading, setIsLoading}) => {
                         <div className="picker-container">
                             <div className="picker-control">
                                 <input type="tel" 
-                                    autoFocus="true"
+                                    autoFocus={true}
                                     className="selection phonenumber"
                                     onChange={(e) => handlePhoneNumber(e.target.value)}
                                     maxLength={9}
@@ -454,13 +369,13 @@ const Home = ({isLoading, setIsLoading}) => {
                                         Horario:
                                     </span>
                                     <span className="review-data">
-                                        18:30 - 20:30 
+                                        {wizard.date.getHours()}:{wizard.date.getMinutes()} - {wizard.date.getHours() + wizard.time}:{wizard.date.getMinutes()}
                                     </span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    :wizard.step === 9?
+                    :wizard.step === 8?
                     <div className="wizard-step">
                         <div className="confirmation-text">
                             Tu confirmarción:
@@ -479,7 +394,7 @@ const Home = ({isLoading, setIsLoading}) => {
                         siguiente
                     </button>
                 </div>
-                :wizard.step === 9?
+                :wizard.step === 8?
                 <div className="footer">
                     <button onClick={()=>setWizard({step:0,date:new Date(new Date().setMinutes(0)),})} className='btn'>
                         Finalizar
