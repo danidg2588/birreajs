@@ -8,20 +8,23 @@ import { FaMinus, FaPlus } from "react-icons/fa6";
 import { Link } from 'react-router-dom'
 import DatePicker from '../DatePicker/DatePicker';
 import TimePicker from '../TimePicker/TimePicker';
+import axios from 'axios';
 
 
 const Home = ({isLoading, setIsLoading}) => {
     const [menu,setMenu] = useState(false)
-
     const [timeSelector,setTimeSelector] = useState(true)
+    const [canchas,setCanchas] = useState([])
+
     const [wizard,setWizard] = useState({
         step:0,
         sport:null,
-        // date:null,
         date:new Date(new Date(new Date(new Date(new Date().setMinutes((15 * Math.ceil(new Date().getMinutes() / 15) % 60))).setSeconds(0))).setHours(new Date(new Date(new Date().setMinutes((15 * Math.ceil(new Date().getMinutes() / 15) % 60))).setSeconds(0)).getHours() + 1)),
         time:1,
         phone:null,
-        court:null,
+        cancha_id:null,
+        cancha:null,
+        cancha_location:null,
         confirmation:null,
     })
 
@@ -58,6 +61,49 @@ const Home = ({isLoading, setIsLoading}) => {
         }
     }
 
+    function handleWizard(){
+
+        if (wizard.step === 4)
+        {
+            setIsLoading(true)
+
+            axios.get('https://danilo2588.pythonanywhere.com/canchas', {
+                Timeout:3500,
+                params:{
+                    'date':wizard.date,
+                    'time':wizard.time,
+                    'sport':wizard.sport,
+                    }
+            })
+            .then(function (response) {
+    
+                if (response.data)
+                {
+
+                    setCanchas(response.data)
+
+                    setWizard({
+                        ...wizard,
+                        step:wizard.step + 1
+                    })
+                }
+            })
+            .catch(function (error){
+                console.log(error)
+            })
+            .finally(function(){
+                setIsLoading(false)
+            })
+
+        } else {
+            setWizard({
+                ...wizard,
+                step:wizard.step + 1
+            })
+        }
+
+    }
+
     function increaseValue(){
         let next = new Date(wizard.date)
         if (wizard.step === 3)
@@ -86,10 +132,12 @@ const Home = ({isLoading, setIsLoading}) => {
         }
     }
 
-    function handleCourt(id){
+    function handleCourt(id,name,location){
         setWizard({
             ...wizard,
-            court:id,
+            cancha_id:id,
+            cancha:name,
+            cancha_location:location,
             step: wizard.step + 1
         })
     }
@@ -119,13 +167,32 @@ const Home = ({isLoading, setIsLoading}) => {
       }
 
     function submitBookingRequest(){
-        alert('submitting booking request')
-        setWizard({
-            ...wizard,
-                step: wizard.step + 1,
-                confirmation:'F7ADSF8A'
+        setIsLoading(true)
+
+        axios.post("https://danilo2588.pythonanywhere.com/booking", {
+            'date':wizard.date,
+            'time':wizard.time,
+            'business':wizard.cancha_id,
+            'phone':wizard.phone,
+
+        })
+        .then( function(response){
+            if (response.data && response.status === 200)
+            {
+                setWizard({
+                    ...wizard,
+                    confirmation:response.data,
+                    step:wizard.step + 1
+                })
             }
-        )
+        })
+        .catch(function (error){
+            console.log(error)
+        })
+        .finally(function(){
+            setIsLoading(false)
+        })
+
     }
 
     
@@ -140,7 +207,7 @@ const Home = ({isLoading, setIsLoading}) => {
                     </div>
                     <div className="options">
                         <Link className='menu-link' to="/">Inicio</Link>
-                        <Link className='menu-link' to="/board" >Empresas</Link>
+                        <Link className='menu-link' to="/board" >Canchas</Link>
                         <Link className='menu-link' to="/faqs">FAQ's</Link>
                     </div>
                 </div>
@@ -285,32 +352,22 @@ const Home = ({isLoading, setIsLoading}) => {
                         <div className="court-container">
                             <div className="grid-court">
                                 
-                                <button className="grid-card" onClick={() => handleCourt(0)}>
-                                    <div className="name">
-                                        Cancha Sintética 1000
-                                    </div>
-                                    <div className="location">
-                                        San Francisco
-                                    </div>
-                                </button>
+                                {canchas.map((cancha) => 
+
+                                    <button key={cancha.id} className={wizard.cancha === cancha.id?"grid-card active":"grid-card"} onClick={() => handleCourt(cancha.id,cancha.name,cancha.address)}>
+                                        <div className="name">
+                                            {cancha.name}
+                                        </div>
+                                        <div className="cost">
+                                            ${cancha.cost}/hora
+                                        </div>
+                                        <div className="location">
+                                            {cancha.address}
+                                        </div>
+                                    </button>
+
+                                )}
                                 
-                                <button className="grid-card">
-                                    <div className="name">
-                                        Cancha Sintética 2000
-                                    </div>
-                                    <div className="location">
-                                        San Francisco
-                                    </div>
-                                </button>
-    
-                                <button className="grid-card">
-                                    <div className="name">
-                                        Cancha Sintética 3000
-                                    </div>
-                                    <div className="location">
-                                        San Francisco
-                                    </div>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -350,26 +407,26 @@ const Home = ({isLoading, setIsLoading}) => {
                             <div className="container slide-up">
                                 <div className='data-container'>
                                     <span className="review-title">
-                                        Deporte:
-                                    </span>
-                                    <span className="review-data">
-                                        {wizard.sport}
-                                    </span>
-                                </div>
-                                <div className='data-container'>
-                                    <span className="review-title">
                                         Cancha:
                                     </span>
-                                    <span className="review-data">
-                                        Cancha de futbol 2000
+                                    <span className="court-name">
+                                        {wizard.cancha}
                                     </span>
                                 </div>
                                 <div className='data-container'>
                                     <span className="review-title">
                                         Horario:
                                     </span>
-                                    <span className="review-data">
-                                        {wizard.date.getHours()}:{wizard.date.getMinutes()} - {wizard.date.getHours() + wizard.time}:{wizard.date.getMinutes()}
+                                    <span className="schedule">
+                                        {wizard.date.getHours()}:{wizard.date.getMinutes()<10?"0"+wizard.date.getMinutes():wizard.date.getMinutes()} - {wizard.date.getHours() + wizard.time}:{wizard.date.getMinutes()<10?"0"+wizard.date.getMinutes():wizard.date.getMinutes()}
+                                    </span>
+                                </div>
+                                <div className='data-container'>
+                                    <span className="review-title">
+                                        Dirección:
+                                    </span>
+                                    <span className="address">
+                                        {wizard.cancha_location}
                                     </span>
                                 </div>
                             </div>
@@ -390,13 +447,13 @@ const Home = ({isLoading, setIsLoading}) => {
                 
                 {wizard.step >= 2 && wizard.step < 7?
                 <div className="footer">
-                    <button onClick={()=>setWizard({...wizard,step:wizard.step+1})} className='btn'>
+                    <button onClick={() => handleWizard()} className='btn'>
                         siguiente
                     </button>
                 </div>
                 :wizard.step === 8?
                 <div className="footer">
-                    <button onClick={()=>setWizard({step:0,date:new Date(new Date().setMinutes(0)),})} className='btn'>
+                    <button onClick={()=>setWizard({step:0,time:1,date:new Date(new Date(new Date(new Date(new Date().setMinutes((15 * Math.ceil(new Date().getMinutes() / 15) % 60))).setSeconds(0))).setHours(new Date(new Date(new Date().setMinutes((15 * Math.ceil(new Date().getMinutes() / 15) % 60))).setSeconds(0)).getHours() + 1)),})} className='btn'>
                         Finalizar
                     </button>
                 </div>

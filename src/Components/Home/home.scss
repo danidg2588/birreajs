@@ -122,7 +122,7 @@
     overflow-x: hidden;
 
     .confirmation-text{
-        font-size: 1.5rem;
+        font-size: 1.125rem;
         font-weight: 100;
     }
 
@@ -330,29 +330,39 @@
                 scrollbar-width: none;
 
                 .grid-card{
-                    background-color: var(--yellowColor);
                     border-radius: .5rem;
-                    aspect-ratio: 1 / 1;
+                    aspect-ratio: 1.5 / 1;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     flex-direction: column;
-                    height: 25vh;
-                    margin: 1rem;
-                    padding: 1rem;
-                    color: var(--darkGreenColor);
+                    max-width: 250px;
+                    margin: 0 .5rem;
+                    padding: 0 1.5rem;
+                    border: 2px solid grey;
                     cursor: pointer;
+                    color: grey;
 
                     .name{
                         font-size: 2rem;
                         font-weight: 600;
                     }
 
+                    .cost{
+                        font-size: 1.5rem;
+                        margin: .5rem 0;
+                    }
+
                     .location{
                         font-weight: 100;
-                        font-size: 1.25rem;
                         margin-top: .5rem;
                     }
+                }
+
+                .active{
+                    color: var(--darkGreenColor);
+                    border-color: var(--darkGreenColor);
+                    background-color: var(--yellowColor);
                 }
             }
         }
@@ -410,9 +420,18 @@
                         font-weight: 100;
                     }
             
-                    .review-data{
+                    .court-name{
                         font-size: 2rem;
                         font-weight: 800;
+                    }
+
+                    .schedule{
+                        font-size: 1.5rem;
+                        font-weight: 600;
+                    }
+
+                    .address{
+                        font-size: 1.125rem;
                     }
                 }
             }

@@ -25,7 +25,7 @@ const ProtectedRoutes = ({isLoading, setIsLoading}) => {
             'password':login.password,
         })
         .then( function(response){
-            if (response.status == 200 && response.data.token)
+            if (response.status === 200 && response.data.token)
             {
               localStorage.setItem("birrea.app",response.data.token)
               setToken(response.data.token)

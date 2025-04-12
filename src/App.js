@@ -15,11 +15,12 @@ function App() {
   
   return (
     <Routes>
-      <Route index element={<Home />}></Route>
+      <Route index element={<Home isLoading={isLoading} setIsLoading={setIsLoading} />}></Route>
       <Route path='/faqs' element={<Faqs />}></Route>
       <Route element={<ProtectedRoutes isLoading={isLoading} setIsLoading={setIsLoading}  />}>
               <Route path="/board" element={<ControlPanel isLoading={isLoading} setIsLoading={setIsLoading} />} />
       </Route>
+
     </Routes>
   );
 }
