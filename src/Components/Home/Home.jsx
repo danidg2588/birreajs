@@ -21,7 +21,7 @@ const Home = ({isLoading, setIsLoading}) => {
         sport:null,
         date:new Date(new Date(new Date(new Date(new Date().setMinutes((15 * Math.ceil(new Date().getMinutes() / 15) % 60))).setSeconds(0))).setHours(new Date(new Date(new Date().setMinutes((15 * Math.ceil(new Date().getMinutes() / 15) % 60))).setSeconds(0)).getHours() + 1)),
         time:1,
-        phone:null,
+        phone:'',
         cancha_id:null,
         cancha:null,
         cancha_location:null,
@@ -96,10 +96,14 @@ const Home = ({isLoading, setIsLoading}) => {
             })
 
         } else {
-            setWizard({
-                ...wizard,
-                step:wizard.step + 1
-            })
+            console.log('hellooo')
+            if ((wizard.step === 2 && wizard.date) || (wizard.step === 3 && wizard.date) || (wizard.step === 5 && wizard.cancha_id) || (wizard.step === 6 && wizard.phone))
+            {
+                setWizard({
+                    ...wizard,
+                    step:wizard.step + 1
+                })
+            }
         }
 
     }
@@ -418,7 +422,25 @@ const Home = ({isLoading, setIsLoading}) => {
                                         Horario:
                                     </span>
                                     <span className="schedule">
-                                        {wizard.date.getHours()}:{wizard.date.getMinutes()<10?"0"+wizard.date.getMinutes():wizard.date.getMinutes()} - {wizard.date.getHours() + wizard.time}:{wizard.date.getMinutes()<10?"0"+wizard.date.getMinutes():wizard.date.getMinutes()}
+                                        {wizard.date.getDay()===0?
+                                            'Doming'
+                                        :wizard.date.getDay()===1?
+                                            'Lunes'
+                                        :wizard.date.getDay()===2?
+                                            'Martes'
+                                        :wizard.date.getDay()===3?
+                                            'Miércoles'
+                                        :wizard.date.getDay()===4?
+                                            'Jueves'
+                                        :wizard.date.getDay()===5?
+                                            'Viernes'
+                                        :wizard.date.getDay()===6?
+                                            'Sábado'
+                                        :null                                                                                                                                                                                                                                                                  
+                                        } {wizard.date.getDate()}, {wizard.date.getFullYear()}
+                                        <p>
+                                            {wizard.date.getHours()}:{wizard.date.getMinutes()<10?"0"+wizard.date.getMinutes():wizard.date.getMinutes()} - {wizard.date.getHours() + wizard.time}:{wizard.date.getMinutes()<10?"0"+wizard.date.getMinutes():wizard.date.getMinutes()}
+                                        </p>
                                     </span>
                                 </div>
                                 <div className='data-container'>

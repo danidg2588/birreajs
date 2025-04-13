@@ -10,6 +10,10 @@ import { Link } from 'react-router-dom'
 const Authentication = ({login, isLoading, setLogin, handleSubmitEvent}) => {
 
     const [isVisible, setIsVisible] = useState(false)
+    const [registration, setRegistration] = useState({
+        state:false,
+        step:0,
+    })
 
     const handleUsername = (val) => {
         if ((String(val).includes('@')) & (String(val).includes('.')) ) {
@@ -69,10 +73,13 @@ const Authentication = ({login, isLoading, setLogin, handleSubmitEvent}) => {
                     }
                 </div>
             </div>
-            <div className="options">
-                <button>Restaurar contraseña</button>
-                <button>Registrarme</button>
-            </div>
+            {/* <div className="options">
+                {registration.state?
+                <button onClick={() => setRegistration({state:false,step:0})}>Atrás</button>
+                :<button>Restaurar contraseña</button>
+                }
+                <button onClick={() => setRegistration({...registration,state:true})}>Registrarme</button>
+            </div> */}
         </div>
         <div className="auth-footer">
             <button onClick={(e)=>handleSubmitEvent(e)}>

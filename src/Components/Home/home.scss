@@ -426,12 +426,18 @@
                     }
 
                     .schedule{
-                        font-size: 1.5rem;
+                        font-size: 1.25rem;
                         font-weight: 600;
+
+                        p{
+                            font-size: 1.75rem;
+                            margin: 0;
+                            padding: 0;
+                        }
                     }
 
                     .address{
-                        font-size: 1.125rem;
+                        font-size: 1.25rem;
                     }
                 }
             }
