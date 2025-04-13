@@ -206,24 +206,28 @@
 
         .grid{
             display: grid;
-            grid-template-columns: repeat(3,1fr);
+            grid-template-columns: repeat(2,1fr);
             justify-items: center;
             margin-top: 2rem;
-            gap: 5px;
+            gap: 15px 0;
             align-items: center;
 
             .option{
                 display: flex;
-                height: 5rem;
-                width: 5rem;
+                flex-direction: column;
+                // height: 5rem;
+                width: 10rem;
+                padding: 1.125rem;
+                
                 aspect-ratio: 1 / 1;
                 justify-content: center;
                 align-items: center;
-                font-size: 1.25rem;
                 cursor: pointer;
+                border-radius: 1rem;
+                border: none;
 
                 .option-icon{
-                    font-size: 3rem;
+                    font-size: 5rem;
                 }
             }
 

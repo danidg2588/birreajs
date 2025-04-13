@@ -94,9 +94,9 @@ const Menu = ({page, setPage}) => {
               <FaUser className='nav-menu-icon'/>
               <span>Profile</span>
             </div>
-            <span className="menu-item">
+            <span className="menu-item" onClick={() => handleLogout()}>
               <FaLocationDot className='nav-menu-icon'/>
-              <span>Trips</span>
+              <span>Cerrar sesión</span>
             </span>
           </div>
       </div>

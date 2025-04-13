@@ -13,8 +13,9 @@
     align-items: center;
     flex-direction: column;
 
-    .nav-upper, nav-heading, .nav-menu, .menu-item{
-        display: grid;
+
+    .nav-upper, .nav-heading, .nav-menu, .menu-item{
+        display: flex;
     }
 
     .nav-upper{
@@ -237,13 +238,15 @@
     }
 }
 
-@media screen and (min-width:800px) {
+@media screen and (max-width:550px) {
     .side-bar-container{
-        display: flex;
+        display: none;
     }
 
     .mobile, .mobile-menu{
-        display: none;
+        display: flex;
+
+        justify-content: space-between;
     }
 }
 

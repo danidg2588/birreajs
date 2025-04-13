@@ -73,13 +73,13 @@ const Authentication = ({login, isLoading, setLogin, handleSubmitEvent}) => {
                     }
                 </div>
             </div>
-            {/* <div className="options">
+            <div className="options">
                 {registration.state?
                 <button onClick={() => setRegistration({state:false,step:0})}>Atrás</button>
                 :<button>Restaurar contraseña</button>
                 }
                 <button onClick={() => setRegistration({...registration,state:true})}>Registrarme</button>
-            </div> */}
+            </div>
         </div>
         <div className="auth-footer">
             <button onClick={(e)=>handleSubmitEvent(e)}>

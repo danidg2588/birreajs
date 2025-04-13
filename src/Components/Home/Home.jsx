@@ -14,7 +14,8 @@ import axios from 'axios';
 const Home = ({isLoading, setIsLoading}) => {
     const [menu,setMenu] = useState(false)
     const [timeSelector,setTimeSelector] = useState(true)
-    const [canchas,setCanchas] = useState([])
+    const [canchas,setCanchas] = useState()
+    const [sports,setSports] = useState()
 
     const [wizard,setWizard] = useState({
         step:0,
@@ -29,8 +30,23 @@ const Home = ({isLoading, setIsLoading}) => {
     })
 
     useEffect(() => {
-        console.log(wizard.date,'date just changed')
-    },[wizard.date])
+        axios.get('https://danilo2588.pythonanywhere.com/canchas', {
+            Timeout:3500,
+            params:{
+                'checkcourts':true,
+                }
+        })
+        .then(function (response) {
+
+            setSports(response.data)
+        })
+        .catch(function (error){
+            console.log(error)
+        })
+        .finally(function(){
+            setIsLoading(false)
+        })
+    },[])
 
     function decreaseValue(){
         let prev = new Date(wizard.date)
@@ -76,10 +92,8 @@ const Home = ({isLoading, setIsLoading}) => {
                     }
             })
             .then(function (response) {
-    
-                if (response.data)
+                if (response.data && response.status === 200)
                 {
-
                     setCanchas(response.data)
 
                     setWizard({
@@ -96,7 +110,6 @@ const Home = ({isLoading, setIsLoading}) => {
             })
 
         } else {
-            console.log('hellooo')
             if ((wizard.step === 2 && wizard.date) || (wizard.step === 3 && wizard.date) || (wizard.step === 5 && wizard.cancha_id) || (wizard.step === 6 && wizard.phone))
             {
                 setWizard({
@@ -262,34 +275,46 @@ const Home = ({isLoading, setIsLoading}) => {
                         </div>
                         <div className="grid">
                             <button
-                            onClick={() => setWizard({...wizard,step:2,sport:'futbol',})}
-                            className="option active">
+                            onClick={sports.futbol?() => setWizard({...wizard,step:2,sport:'futbol'}):null}
+                            className={sports.futbol?"option active":"option inactive"}>
                                 <GiSoccerBall className='option-icon' />
+                                <span>Futbol</span>
                             </button>
-                            <button 
-                            onClick={() => setWizard({...wizard,step:2,sport:'tenis',})}
-                            className="option inactive">
-                                <GiTennisBall className='option-icon' />
-                            </button>
-                            <button 
-                            onClick={() => setWizard({...wizard,step:2,sport:'voleibol',})}
-                            className="option inacive">
-                                <GiVolleyballBall className='option-icon inactive' />
-                            </button>
+
                             <button
-                            onClick={() => setWizard({...wizard,step:2,sport:'futbol',})}
-                            className="option inactive">
+                            onClick={sports.tenis?() => setWizard({...wizard,step:2,sport:'tenis'}):null}
+                            className={sports.tenis?"option active":"option inactive"}>
+                                <GiTennisBall className='option-icon' />
+                                <span>Tenis</span>
+
+                            </button>
+
+                            <button
+                            onClick={sports.volleyball?() => setWizard({...wizard,step:2,sport:'volleyball'}):null}
+                            className={sports.volleyball?"option active":"option inactive"}>
+                                <GiVolleyballBall className='option-icon' />
+                                <span>Voleibol</span>
+                            </button>
+
+                            <button
+                            onClick={sports.flag?() => setWizard({...wizard,step:2,sport:'flag'}):null}
+                            className={sports.flag?"option active":"option inactive"}>
                                 <GiAmericanFootballBall className='option-icon' />
+                                <span>Flag</span>
                             </button>
-                            <button 
-                            onClick={() => setWizard({...wizard,step:2,sport:'tenis',})}
-                            className="option inactive">
-                                <GiBasketballBall className='option-icon' />
-                            </button>
-                            <button 
-                            onClick={() => setWizard({...wizard,step:2,sport:'voleibol',})}
-                            className="option inactive">
+
+                            <button
+                            onClick={sports.flag?() => setWizard({...wizard,step:2,sport:'flag'}):null}
+                            className={sports.flag?"option active":"option inactive"}>
                                 <GiBaseballGlove className='option-icon' />
+                                <span>Béisbol</span>
+                            </button>
+
+                            <button
+                            onClick={sports.basketball?() => setWizard({...wizard,step:2,sport:'basketball'}):null}
+                            className={sports.basketball?"option active":"option inactive"}>
+                                <GiBasketballBall className='option-icon' />
+                                <span>Baloncesto</span>
                             </button>
                         </div>
                     </div>
@@ -356,7 +381,8 @@ const Home = ({isLoading, setIsLoading}) => {
                         <div className="court-container">
                             <div className="grid-court">
                                 
-                                {canchas.map((cancha) => 
+                                {canchas?
+                                    canchas.map((cancha) => 
 
                                     <button key={cancha.id} className={wizard.cancha === cancha.id?"grid-card active":"grid-card"} onClick={() => handleCourt(cancha.id,cancha.name,cancha.address)}>
                                         <div className="name">
@@ -370,7 +396,8 @@ const Home = ({isLoading, setIsLoading}) => {
                                         </div>
                                     </button>
 
-                                )}
+                                )
+                                :'No hay canchas disponibles.'}
                                 
                             </div>
                         </div>

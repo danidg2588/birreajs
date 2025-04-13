@@ -15,8 +15,15 @@ const ControlPanel = () => {
     navigate("/")
   }
 
-  function handleSecondaryMenu(id){
-    console.log(id)
+  function handleStatusMenu(id){
+    let menu
+    menu = document.getElementById('status-menu-'+id)
+    if (menu.style.display == 'flex')
+    {
+      menu.style.display = 'none'
+    } else {
+      menu.style.display = 'flex'
+    }
   }
 
   return (
@@ -88,18 +95,18 @@ const ControlPanel = () => {
                 <td>19:00 - 21:00</td>
                 <td>2 horas</td>
                 <td className='status-wrapper'>
-                  <span className="status pendiente" onClick={() => handleSecondaryMenu(1)}>
+                  <span className="status pendiente" onClick={() => handleStatusMenu(1)}>
                     Pendiente
                     <FaChevronDown className='icon' />
                   </span>
-                  <div className="status-menu">
-                    <span onClick={() => setModal(true)}>
+                  <div className="status-menu" id='status-menu-1'>
+                    <span onClick={() => setModal(1)}>
                       Pendiente
                     </span>
-                    <span onClick={() => setModal(true)}>
+                    <span onClick={() => setModal(1)}>
                       Cancelado
                     </span>
-                    <span onClick={() => setModal(true)}>
+                    <span onClick={() => setModal(1)}>
                       Confirmado
                     </span>
                   </div>

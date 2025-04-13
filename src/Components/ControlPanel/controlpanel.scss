@@ -181,7 +181,7 @@
 
                         .status-menu{
                             position: absolute;
-                            display: flex;
+                            display: none;
                             flex-direction: column;
                             top: 100%;
                             justify-content: center;
@@ -193,6 +193,7 @@
                             width: 125px;
                             padding: .25rem .5rem;
                             user-select: none;
+                            transition: .2s;
 
 
                             span{
@@ -225,3 +226,14 @@
       }
     }
   }
+
+  @media screen and (max-width:550px) {
+    .control-panel{
+        display: flex;
+        flex-direction: column;
+
+        .content{
+            max-width: calc(100vw - 4rem);
+        }
+    }
+}
