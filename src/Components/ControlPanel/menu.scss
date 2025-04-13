@@ -238,18 +238,6 @@
     }
 }
 
-@media screen and (max-width:550px) {
-    .side-bar-container{
-        display: none;
-    }
-
-    .mobile, .mobile-menu{
-        display: flex;
-
-        justify-content: space-between;
-    }
-}
-
 @keyframes slideDown {
     0%{
         opacity: 0;
@@ -258,5 +246,31 @@
     100%{
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media screen and (max-width:550px) {
+    .side-bar-container{
+        display: none;
+    }
+
+    .mobile, .mobile-menu{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (min-width:550px) {
+    .side-bar-container{
+        display: flex;
+
+        .nav-menu{
+            flex-direction: column;
+        }
+
+    }
+
+    .mobile, .mobile-menu{
+        display: none;
     }
 }
