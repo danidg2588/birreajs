@@ -64,7 +64,7 @@ export const Home = () => {
 
         setIsLoading(true)
 
-        axios.post("https://danilo2588.pythonanywhere.com/book", {
+        axios.post("https://danilo2588.pythonanywhere.com/booking", {
                 'requested_date':date,
                 'hours':bookedHours,
                 'business':cancha,

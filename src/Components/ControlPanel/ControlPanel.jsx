@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './controlpanel.scss'
 
+import { PiSoccerBallFill } from "react-icons/pi";
 import { FaChevronDown } from "react-icons/fa";
 import { useNavigate } from 'react-router';
 import Menu from './Menu';
-import axios from 'axios';
 
+import axios from 'axios';
 import { Link } from 'react-router-dom'
 
 
@@ -14,10 +15,15 @@ const ControlPanel = ({isLoading, setIsLoading}) => {
 
   const [modal, setModal] = useState(false)
   const [bookings,setBookings] = useState(null)
+  const [booking,setBooking] = useState({
+    pk:null,
+    status:null,
+  })
   const [filter,setFilter] = useState({
     date1:new Date(new Date().setDate(new Date().getDate() + 6)),
     date2:new Date(),
     text:'',
+    refresh:null,
   })
 
   useEffect(() => {
@@ -44,7 +50,49 @@ const ControlPanel = ({isLoading, setIsLoading}) => {
     .finally(function(){
         setIsLoading(false)
     })
-  },[])
+  },[filter.refresh])
+
+
+
+
+  function updateReseva(){
+    setIsLoading(true)
+
+    axios.post("https://danilo2588.pythonanywhere.com/booking", {
+      'update':booking.pk,
+      'status':booking.status,
+  })
+  .then( function(response){
+    if (response.status === 200)
+    {
+      alert(response.data)
+    }
+  })
+  .catch(function (error){
+    console.log(error)
+  })
+  .finally(function(){
+    setIsLoading(false)
+    setFilter({
+      ...filter,
+      refresh:new Date()
+    })
+  })
+  .then( function(response){
+      setModal(false)
+      if (response.status === 200)
+      {
+        alert(response.data)
+      }
+  })
+  .catch(function (error){
+      console.log(error)
+  })
+  .finally(function(){
+      setIsLoading(false)
+      setModal(false)
+  })
+  }
 
   function handleLogOut(){
     localStorage.removeItem('birrea.app')
@@ -62,6 +110,17 @@ const ControlPanel = ({isLoading, setIsLoading}) => {
     }
   }
 
+  function handleModal(estatus,id){
+
+    setModal(!modal)
+
+    setBooking({
+      ...booking,
+      pk:id,
+      status:estatus,
+    })
+  }
+
   return (
     <div className="control-panel">
       {modal?
@@ -72,7 +131,11 @@ const ControlPanel = ({isLoading, setIsLoading}) => {
             </span>
             <div className="buttons">
               <button className='cancelar' onClick={() => setModal(false)}>Cancelar</button>
-              <button className='proceder'>Proceder</button>
+              <button className='proceder' onClick={()=>updateReseva()}>
+                {isLoading?
+                  <PiSoccerBallFill className="loading-icon" />
+                :'Proceder'}
+              </button>
             </div>
           </div>
         </div>
@@ -174,23 +237,31 @@ const ControlPanel = ({isLoading, setIsLoading}) => {
                     <FaChevronDown className='icon' />
                   </span>
                   <div className="status-menu" id={'status-menu-'+booking.id}>
-                    <span onClick={() => setModal(1)}>
+
+                    {booking.status !== 'pendiente'?
+                    <span onClick={() => handleModal('pendiente',booking.id)}>
                       Pendiente
                     </span>
-                    <span onClick={() => setModal(1)}>
+                    :null}
+
+                    {booking.status !== 'cancelado'?
+                    <span onClick={() => handleModal('cancelado',booking.id)}>
                       Cancelado
                     </span>
-                    <span onClick={() => setModal(1)}>
+                    :null}
+
+                    {booking.status !== 'confirmado'?
+                    <span onClick={() => handleModal('confirmado',booking.id)}>
                       Confirmado
                     </span>
+                    :null}
+                      
                   </div>
                 </td>
               </tr>
               )
-              :
-                'No existen reservas para mostrar'
+              :null
               }
-              
             </tbody>
           </table>
         </div>
